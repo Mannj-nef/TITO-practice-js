@@ -1,0 +1,26 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "email": "manhquan@gmail.com",
+      "password": "123456"
+    }
+  ],
+  "todoList": [
+    {
+      "id": 1,
+      "email": "manhquan@gmail.com",
+      "todos": [
+        "learn html",
+        "learn css",
+        "learn js",
+        "learn reactjs",
+        "learn ts",
+        "learn express",
+        "learn nextjs",
+        "learn nestjs",
+        "learn react native"
+      ]
+    }
+  ]
+}
