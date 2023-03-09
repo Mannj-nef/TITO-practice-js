@@ -13,5 +13,7 @@
     "posthtml-modules": "^0.9.1",
     "sass": "^1.58.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "json-server": "^0.17.2"
+  }
 }
