@@ -1,11 +1,14 @@
 import LoginPage from "./pages/LoginPage";
 import SignIn from "./modules/signIn/SignIn";
 import SignUp from "./modules/signUp/SignUp.js";
+import handleInput from "../helper/handleForm";
+import { FORM } from "../constants/type";
 
 class AuthView {
   constructor() {
     this.createLogin();
     this.handleChangeForm();
+    this.getLoginForm();
   }
 
   createLogin() {
@@ -31,6 +34,14 @@ class AuthView {
     loginElm.addEventListener("click", () => {
       loginBg.classList.add("login-bg-right");
     });
+  }
+
+  getLoginForm(handler) {
+    const loginForm = document.querySelector("#form-sign-in");
+    const regesterForm = document.querySelector("#form-sign-up");
+
+    handleInput(loginForm, FORM.LOGIN, handler);
+    handleInput(regesterForm, FORM.RESGITER, handler);
   }
 }
 
