@@ -1,3 +1,3 @@
 import authView from "../views/authView";
 
-const app = authView;
+const auth = authView;
