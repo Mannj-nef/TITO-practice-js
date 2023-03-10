@@ -5,23 +5,27 @@ function SignUp() {
       <h2 class="form-title">Wellcome back</h2>
       <p class="form-sub-title">Wellcome back! Please enter your details.</p>
       <div class="form-wrapp-input">
-        <label for="email" class="form-label">Email address</label>
+        <label for="email-signUp" class="form-label">Email address</label>
         <input
-          id="email"
+          id="email-signUp"
+          name="email"
           type="text"
           class="form-input"
           placeholder="Enter your email address..."
         />
+        <p class="input-error">Email address is not valid</p>
       </div>
       <div class="form-wrapp-input">
-        <label for="password" class="form-label">Password</label>
+        <label for="password-signUP" class="form-label">Password</label>
         <div class="form-wrapp-password">
           <input
-            id="password"
+            id="password-signUP"
+            name="password"
             type="password"
             class="form-input"
             placeholder="Enter your password..."
           />
+          <p class="input-error">Please enter at least 6 characters</p>
           <div class="show-password">
             <include src="./assets/iconEye.svg"></include>
           </div>
@@ -31,10 +35,12 @@ function SignUp() {
         <label for="confirm-password" class="form-label">Confirm Password</label>
         <input
           id="confirm-password"
+          name="confirm-password"
           type="password"
           class="form-input"
           placeholder="Enter your confirm password..."
         />
+        <p class="input-error">Password does not match</p>
       </div>
       <button class="btn submit-form">
         <div class="loading d-none"></div>
@@ -45,7 +51,6 @@ function SignUp() {
       </p>
     </form>
   </div>
-  
     `;
 }
 

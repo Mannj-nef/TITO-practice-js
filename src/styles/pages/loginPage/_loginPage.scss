@@ -42,10 +42,23 @@
             margin-bottom: 28px;
         }
         .form-wrapp-input {
+            position: relative;
             display: flex;
             gap: 20px;
             flex-direction: column;
             margin-bottom: 30px;
+
+            .input-error {
+                display: none;
+                top: 108%;
+                left: 15px;
+                font-size: $text-sm;
+                color: $error-color;
+                position: absolute;
+            }
+            .invalid + .input-error {
+                display: block;
+            }
         }
         .form-wrapp-password {
             position: relative;
@@ -60,6 +73,9 @@
                 transform: translateY(-50%);
             }
         }
+        .form-label {
+            cursor: pointer;
+        }
         .form-input {
             font-size: 16px;
             width: 100%;
@@ -68,6 +84,9 @@
             border-radius: 8px;
             border: currentColor;
             background-color: $bg-graye2;
+        }
+        .invalid {
+            border: 1px solid $error-color;
         }
         .submit-form {
             margin-top: 10px;
