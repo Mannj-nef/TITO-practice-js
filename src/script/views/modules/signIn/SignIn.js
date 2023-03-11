@@ -32,7 +32,7 @@ function SignIn() {
         </div>
       </div>
       <button class="btn submit-form">
-        <div class="loading d-none"></div>
+        <div class="loading"></div>
         <span class="">Sign In</span>
       </button>
       <p class="confirm-is-account">

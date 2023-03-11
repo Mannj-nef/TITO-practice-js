@@ -1,4 +1,4 @@
-import handleInput from "../helper/handleForm";
+import handleForm from "../helper/handleForm";
 import { FORM } from "../constants/type";
 
 class AuthView {
@@ -31,8 +31,8 @@ class AuthView {
     const loginForm = document.querySelector("#form-sign-in");
     const regesterForm = document.querySelector("#form-sign-up");
 
-    handleInput(loginForm, FORM.LOGIN, handler);
-    handleInput(regesterForm, FORM.RESGITER, handler);
+    handleForm(loginForm, FORM.LOGIN, handler);
+    handleForm(regesterForm, FORM.RESGITER, handler);
   }
 }
 

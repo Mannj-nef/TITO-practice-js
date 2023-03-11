@@ -1,11 +1,15 @@
 import { FORM } from "../constants/type";
 import VALIDATE from "../constants/validateSchema";
 
-function handleInput(formElm, type = FORM.LOGIN, handler) {
+function handleForm(formElm, type = FORM.LOGIN, handler) {
+  if (!formElm) return;
+
+  validate(formElm);
   formElm.addEventListener("submit", function (e) {
     e.preventDefault();
+
     const valueItem = {
-      email: this.elements["email"].value.trim(),
+      email: this.elements["email"].value.trim().toLowerCase(),
       password: this.elements["password"].value.trim(),
     };
 
@@ -13,12 +17,17 @@ function handleInput(formElm, type = FORM.LOGIN, handler) {
       valueItem.confirmPassword = this.elements["confirm-password"].value;
     }
 
-    if (typeof handler === "function") {
-      handler(valueItem);
-    }
-  });
+    const button = formElm.querySelector(".submit-form");
+    button.classList.add("button-loading");
 
-  validate(formElm);
+    const timeOut = setTimeout(() => {
+      button.classList.remove("button-loading");
+
+      if (typeof handler === "function") {
+        handler(valueItem);
+      }
+    }, 2000);
+  });
 }
 
 function validate(formElm) {
@@ -61,7 +70,7 @@ function validate(formElm) {
         handleValid(validateEmail, input, "invalid");
         break;
       case "password" || "text":
-        const validatePassword = value.length > VALIDATE.PASS_MIN;
+        const validatePassword = value.length >= VALIDATE.PASS_MIN;
         handleValid(validatePassword, input, "invalid");
         break;
       case "confirm-password":
@@ -83,4 +92,4 @@ function validate(formElm) {
   }
 }
 
-export default handleInput;
+export default handleForm;

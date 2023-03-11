@@ -4,4 +4,4 @@ import AppView from "../views/appView";
 import AuthView from "../views/authView";
 
 const app = AppView;
-const auth = new AuthController(AuthModel, AuthView);
+const auth = new AuthController(AuthModel, AuthView, AppView);
