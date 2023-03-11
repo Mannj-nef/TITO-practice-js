@@ -16,8 +16,6 @@ function handleInput(formElm, type = FORM.LOGIN, handler) {
     if (typeof handler === "function") {
       handler(valueItem);
     }
-
-    console.log({ valueItem });
   });
 
   validate(formElm);
