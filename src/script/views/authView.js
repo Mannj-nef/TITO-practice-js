@@ -29,9 +29,11 @@ class AuthView {
 
   getLoginForm(handler) {
     const loginForm = document.querySelector("#form-sign-in");
-    const regesterForm = document.querySelector("#form-sign-up");
-
     handleForm(loginForm, FORM.LOGIN, handler);
+  }
+
+  getRegisterForm(handler) {
+    const regesterForm = document.querySelector("#form-sign-up");
     handleForm(regesterForm, FORM.RESGITER, handler);
   }
 }

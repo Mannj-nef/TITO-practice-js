@@ -6,10 +6,10 @@ import Toast from "./components/toast";
 class AppView {
   constructor() {
     this.createLogin();
-    this.createToast();
 
     this.createTodoPage;
     this.showTodoPage;
+    this.createToast;
     this.backLoginPage();
   }
   createLogin() {
@@ -20,9 +20,13 @@ class AppView {
     const app = document.getElementById("root");
     app.innerHTML = "lorem";
   }
-  createToast() {
+  createToast(data) {
     const toast = document.getElementById("toast");
-    toast.innerHTML = Toast();
+    toast.innerHTML = data;
+
+    setTimeout(() => {
+      toast.innerHTML = "";
+    }, 4000);
   }
 
   showTodoPage() {

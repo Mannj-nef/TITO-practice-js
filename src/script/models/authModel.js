@@ -26,11 +26,16 @@ class AuthModel {
   }
 
   async fildEmailUser({ email }) {
-    const condition = (user) => {
-      email === user.email;
-    };
+    console.log(email);
+    const condition = (user) => email === user.email;
     const user = this.findUser(condition);
     return user;
+  }
+
+  async registerUser({ email, password }) {
+    const endpointUrl = this.endpoint;
+    const { data } = await axios.post(endpointUrl, { email, password });
+    return data;
   }
 }
 

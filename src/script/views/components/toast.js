@@ -1,7 +1,9 @@
+import { TOAST } from "../../constants/type";
+
 function Toast(type = "error", message = "TypeError: Failed to fetch") {
   const icons = {
-    success: "ti-check",
-    error: "ti-close",
+    [TOAST.SUCCESS]: "ti-check",
+    [TOAST.ERROR]: "ti-close",
   };
   const icon = icons[type];
   return `

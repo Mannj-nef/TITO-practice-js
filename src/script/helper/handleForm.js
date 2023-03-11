@@ -35,13 +35,20 @@ function validate(formElm) {
   const regexEmail = VALIDATE.EMAIL;
 
   [...inputControls].forEach((inputItem) => {
-    inputItem.addEventListener("input", (item) => handleInput(item, "input"));
-    inputItem.addEventListener("blur", (item) => handleInput(item, "blur"));
-    inputItem.addEventListener("focus", (item) => handleInput(item, "focus"));
+    inputItem.addEventListener("input", (e) =>
+      handleInput(e, "input", inputControls)
+    );
+    inputItem.addEventListener("blur", (e) =>
+      handleInput(e, "blur", inputControls)
+    );
+    inputItem.addEventListener("focus", (e) =>
+      handleInput(e, "focus", inputControls)
+    );
   });
 
-  function handleInput(item, paramenter) {
-    const inputTarget = item.target;
+  function handleInput(e, paramenter, inputControls) {
+    const inputPassword = inputControls[1];
+    const inputTarget = e.target;
     const valueInput = inputTarget.value;
 
     if (paramenter === "input") {
@@ -50,11 +57,11 @@ function validate(formElm) {
         inputTarget.classList.remove("invalid");
         return;
       }
-      checkInput(inputTarget, valueInput);
+      checkInput(inputTarget, valueInput, inputPassword);
     }
 
     if (paramenter === "blur") {
-      checkInput(inputTarget, valueInput);
+      checkInput(inputTarget, valueInput, inputPassword);
     }
 
     if (paramenter === "focus") {
@@ -62,20 +69,21 @@ function validate(formElm) {
     }
   }
 
-  function checkInput(input, value) {
-    const inputName = input.name;
+  function checkInput(inputTarget, value, inputPassword) {
+    const inputName = inputTarget.name;
     switch (inputName) {
       case "email":
         const validateEmail = regexEmail.test(value);
-        handleValid(validateEmail, input, "invalid");
+        handleValid(validateEmail, inputTarget, "invalid");
         break;
       case "password" || "text":
         const validatePassword = value.length >= VALIDATE.PASS_MIN;
-        handleValid(validatePassword, input, "invalid");
+        handleValid(validatePassword, inputTarget, "invalid");
         break;
       case "confirm-password":
-        const validateConfirmPassword = "";
-        handleValid(validateConfirmPassword, input, "invalid");
+        const passwordValue = inputPassword.value;
+        const validateConfirmPassword = value === passwordValue;
+        handleValid(validateConfirmPassword, inputTarget, "invalid");
         break;
 
       default:
