@@ -6,8 +6,11 @@ import Toast from "./components/toast";
 class AppView {
   constructor() {
     this.createLogin();
-    this.createTodoPage();
     this.createToast();
+
+    this.createTodoPage;
+    this.showTodoPage;
+    this.backLoginPage();
   }
   createLogin() {
     const app = document.getElementById("root");
@@ -15,11 +18,23 @@ class AppView {
   }
   createTodoPage() {
     const app = document.getElementById("root");
+    app.innerHTML = "lorem";
   }
   createToast() {
-    const app = document.getElementById("toast");
-    app.innerHTML = Toast();
+    const toast = document.getElementById("toast");
+    toast.innerHTML = Toast();
   }
+
+  showTodoPage() {
+    const LoginPage = document.querySelector(".login");
+    LoginPage.classList.add("login-hidden");
+
+    setTimeout(() => {
+      this.createTodoPage();
+    }, 500);
+  }
+
+  backLoginPage() {}
 }
 
 export default new AppView();

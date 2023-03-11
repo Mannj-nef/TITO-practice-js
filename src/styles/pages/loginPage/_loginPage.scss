@@ -10,6 +10,12 @@
     color: $text-color;
     overflow: hidden;
 
+    transition: all 0.5s ease-in;
+
+    &-hidden {
+        transform: translateY(-200%);
+    }
+
     &-bg {
         position: absolute;
         top: 0;
@@ -100,7 +106,19 @@
             color: $bg-primary;
             background-color: $secon-color;
             margin-bottom: 12px;
-            min-height: 48px;
+            height: 48px;
+
+            .loading {
+                display: none;
+            }
+        }
+        .button-loading {
+            .loading {
+                display: block;
+            }
+            span {
+                display: none;
+            }
         }
         .confirm-is-account {
             text-align: center;
