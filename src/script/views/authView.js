@@ -1,19 +1,10 @@
-import LoginPage from "./pages/LoginPage";
-import SignIn from "./modules/signIn/SignIn";
-import SignUp from "./modules/signUp/SignUp.js";
 import handleInput from "../helper/handleForm";
 import { FORM } from "../constants/type";
 
 class AuthView {
   constructor() {
-    this.createLogin();
     this.handleChangeForm();
     this.getLoginForm();
-  }
-
-  createLogin() {
-    const app = document.getElementById("root");
-    app.innerHTML = LoginPage(SignIn, SignUp);
   }
 
   handleChangeForm() {

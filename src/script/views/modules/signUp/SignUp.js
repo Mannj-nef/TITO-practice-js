@@ -27,7 +27,7 @@ function SignUp() {
           />
           <p class="input-error">Please enter at least 6 characters</p>
           <div class="show-password">
-            <include src="./assets/iconEye.svg"></include>
+            <img src="./src/assets/iconEye.svg" alt=""></img>
           </div>
         </div>
       </div>
