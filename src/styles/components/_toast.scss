@@ -5,6 +5,7 @@
         --position: 20px;
 
         position: fixed;
+        min-width: 300px;
         z-index: 999;
 
         top: var(--position);
@@ -20,11 +21,8 @@
 
         cursor: pointer;
 
-        transform: translateX(200%);
-        transition: all 0.5s ease-in;
-    }
-    &-show {
-        transform: translateX(0);
+        // transform: translateX(200%);
+        transition: all 1s ease-in;
     }
     &-error {
         background-color: $error-opacity;

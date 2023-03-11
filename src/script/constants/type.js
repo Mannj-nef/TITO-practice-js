@@ -7,3 +7,7 @@ export const KEY = {
   LOCALSTORAGE_UESR: "user",
   LOCALSTORAGE_TODOS: "todos",
 };
+export const TOAST = {
+  SUCCESS: "success",
+  ERROR: "error",
+};
