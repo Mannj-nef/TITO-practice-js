@@ -5,7 +5,7 @@ function Toast(type = "error", message = "TypeError: Failed to fetch") {
   };
   const icon = icons[type];
   return `
-    <div class="toast-item toast-show toast-${type}">
+    <div class="toast-item toast-${type}">
         <div class="toast-icon">
         <i class="${icon}"></i>
         </div>
