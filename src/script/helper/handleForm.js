@@ -35,14 +35,12 @@ export const handleFormTodo = (formElm, handle) => {
     let inputValue = input.value.trim();
 
     if (inputValue <= 0) {
-      inputValue = "";
+      input.value = "";
       return;
     }
-
-    console.log(inputValue);
-
     if (typeof handle === "function") {
-      handle();
+      handle(inputValue);
+      input.value = "";
     }
   });
 };

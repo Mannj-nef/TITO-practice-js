@@ -17,13 +17,17 @@ class TodoModel {
   }
 
   async getTodoByEmail(email) {
-    const endpointUrl = this.endpoint;
+    const endpointUrl = `${this.endpoint}?email=${email}`;
     const { data } = await axios.get(endpointUrl);
 
     if (data) {
-      const [user] = data.filter((item) => item.email === email);
-      this.todos.push(...user.todos);
+      this.todos.push(...data);
     }
+  }
+
+  async addTodo(todo) {
+    const endpointUrl = this.endpoint;
+    await axios.post(endpointUrl, todo);
   }
 }
 
