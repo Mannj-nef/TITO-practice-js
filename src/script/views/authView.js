@@ -8,7 +8,6 @@ class AuthView {
   }
 
   handleChangeForm() {
-    // const
     const loginBg = document.querySelector(".login-bg");
 
     // form login

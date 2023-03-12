@@ -1,12 +1,16 @@
-function TodoItem({ titleTask = "Please check me if done task" }) {
+function TodoItem({
+  id = null,
+  complete = false,
+  title = "Please check me if done task",
+}) {
   return `
     <div class="todo-item">
         <label for="checkbox" class="checkbox-style">
         <input
             type="checkbox"
-            name="evondev"
+            name="checkbox-todo"
             id="checkbox"
-            class="checkbox-input"
+            class="checkbox-input ${complete ? "checkbox-input-checked" : ""}"
         />
         <div class="checkbox-box">
             <svg
@@ -23,15 +27,15 @@ function TodoItem({ titleTask = "Please check me if done task" }) {
             </svg>
         </div>
         <label for="checkbox" class="checkbox-label"
-            >${titleTask}</label
+            >${title}</label
         >
         </label>
 
         <div class="todo-btn-wrapp">
-        <button class="btn todo-btn btn-replace">
+        <button data-id="${id}" class="btn todo-btn btn-replace">
             <i class="ti-pencil"></i>
         </button>
-        <button class="btn todo-btn btn-remove">
+        <button data-id="${id}" class="btn todo-btn btn-remove">
             <i class="ti-trash"></i>
         </button>
         </div>

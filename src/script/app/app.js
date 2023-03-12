@@ -1,9 +1,11 @@
 import AuthController from "../controllers/authController";
+import TodoController from "../controllers/todoController";
 import AuthModel from "../models/authModel";
+import TodoModel from "../models/todoModel";
 import AppView from "../views/appView";
 import AuthView from "../views/authView";
-import todoView from "../views/todoView";
+import TodoView from "../views/todoView";
 
 const app = AppView;
-const todo = todoView;
+const todo = new TodoController(TodoModel, TodoView);
 const auth = new AuthController(AuthModel, AuthView, AppView);

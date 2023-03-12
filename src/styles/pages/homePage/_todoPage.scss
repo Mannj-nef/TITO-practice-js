@@ -8,12 +8,15 @@
     }
 }
 .todo {
+    &-content {
+        padding-bottom: 80px;
+    }
     &-main {
         background-color: $bg-primary;
         padding: 50px;
         border-radius: 12px;
         max-width: 700px;
-        margin: 50px auto;
+        margin: 50px auto 0;
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     }
     &-list {
