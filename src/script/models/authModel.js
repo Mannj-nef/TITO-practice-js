@@ -26,7 +26,6 @@ class AuthModel {
   }
 
   async fildEmailUser({ email }) {
-    console.log(email);
     const condition = (user) => email === user.email;
     const user = this.findUser(condition);
     return user;

@@ -1,0 +1,89 @@
+@use "../../abstracts/" as *;
+@use "../../base/" as *;
+
+.todo {
+    &-page {
+        background-color: $bg-secon;
+        min-height: 100vh;
+    }
+}
+.todo {
+    &-main {
+        background-color: $bg-primary;
+        padding: 50px;
+        border-radius: 12px;
+        max-width: 700px;
+        margin: 50px auto;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+    &-list {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    &-item {
+        @include flex-between();
+
+        position: relative;
+        border-radius: 12px;
+        padding: 20px;
+        background-color: $bg-secon;
+    }
+    &-item:hover {
+        cursor: pointer;
+        background-color: $bg-graye2;
+    }
+    &-btn {
+        padding: 8px;
+        font-size: $text-sm;
+        color: $bg-primary;
+    }
+    &-btn-wrapp {
+        flex-shrink: 0;
+
+        .btn-replace {
+            background-color: $success-color;
+        }
+        .btn-remove {
+            background-color: $error-color;
+        }
+    }
+}
+.main {
+    &-title {
+        text-align: center;
+        font-weight: 700;
+        color: $four-color;
+        text-transform: capitalize;
+        font-size: $text-xxl;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+    }
+    &-form {
+        position: relative;
+    }
+    &-input {
+        font-size: 16px;
+        width: 100%;
+        padding: 15px;
+        padding-right: 50px;
+        border-radius: 8px;
+        border: currentColor;
+        background-color: $bg-graye2;
+        padding-right: 100px;
+    }
+    &-btn {
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        height: 100%;
+        padding: 20px;
+        width: 90px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border: none;
+        color: $bg-primary;
+        background-color: $secon-color;
+    }
+}
