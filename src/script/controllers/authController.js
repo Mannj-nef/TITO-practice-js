@@ -1,5 +1,6 @@
 import MESSAGE from "../constants/message";
 import { KEY } from "../constants/type";
+import { getLocalStorage, setLocalStorage } from "../helper/handlelocalStorage";
 import TOAST from "../helper/handleToast";
 
 class AuthController {
@@ -54,22 +55,26 @@ class AuthController {
     const userJson = JSON.stringify(user);
 
     AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGIN_SUCCESS));
-    localStorage.setItem(KEY.LOCALSTORAGE_UESR, userJson);
+    setLocalStorage(KEY.LOCALSTORAGE_UESR, userJson);
 
     AppView.showTodoPage();
   }
 
   handleCheckLogin = async () => {
-    const Auth = this.model;
-    const AppView = this.appView;
+    try {
+      const Auth = this.model;
+      const AppView = this.appView;
 
-    const userJson = JSON.parse(localStorage.getItem(KEY.LOCALSTORAGE_UESR));
+      const userJson = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
-    if (!userJson) return;
-    const user = await Auth.fildEmailUser(userJson);
+      if (!userJson) return;
+      const user = await Auth.fildEmailUser(userJson);
 
-    if (user) {
-      AppView.createTodoPage();
+      if (user) {
+        AppView.createTodoPage();
+      }
+    } catch (error) {
+      AppView.createToast(TOAST.ERROR(error));
     }
   };
 }

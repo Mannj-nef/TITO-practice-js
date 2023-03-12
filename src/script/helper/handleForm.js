@@ -32,9 +32,18 @@ export const handleFormTodo = (formElm, handle) => {
   formElm.addEventListener("submit", function (e) {
     e.preventDefault();
     const input = this.elements["input-todo"];
-    const inputValue = input.value.trim();
+    let inputValue = input.value.trim();
 
-    handle(inputValue);
+    if (inputValue <= 0) {
+      inputValue = "";
+      return;
+    }
+
+    console.log(inputValue);
+
+    if (typeof handle === "function") {
+      handle();
+    }
   });
 };
 

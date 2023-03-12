@@ -22,7 +22,7 @@
     color: transparent;
     transition: all 0.2s linear;
 }
-.checkbox-input:checked + .checkbox-box {
+.checkbox-input-checked + .checkbox-box {
     background-color: #6a5af9;
     border-color: #6a5af9;
     color: white;

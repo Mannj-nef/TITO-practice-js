@@ -1,4 +1,5 @@
 import { handleFormTodo } from "../helper/handleForm";
+import TodoItem from "./modules/todoList/TodoItem";
 
 class TodoView {
   constructor() {
@@ -9,11 +10,23 @@ class TodoView {
     window.addEventListener("load", () => {
       const form = document.querySelector(".main-form");
       if (form) {
-        handleFormTodo(form, handle);
+        handleFormTodo(form);
       }
     });
   }
-  displayTodos(todos) {}
+
+  displayTodos(todos) {
+    window.addEventListener("load", () => {
+      const todoListElm = document.querySelector(".todo-list");
+
+      if (todos.length > 0) {
+        const todoList = todos.map((todoItem) => TodoItem(todoItem));
+        todoListElm.innerHTML = todoList;
+      }
+    });
+  }
+
+  deleteTodo() {}
 }
 
 export default new TodoView();

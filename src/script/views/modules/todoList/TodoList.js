@@ -7,7 +7,6 @@ function TodoList() {
             <h2 class="main-title">Todo App</h2>
                 ${TodoForm()}
             <div class="todo-list">
-                ${TodoItem({})}
             </div>
     </div>
 
