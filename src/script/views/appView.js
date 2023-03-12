@@ -2,6 +2,7 @@ import LoginPage from "./pages/LoginPage";
 import SignIn from "./modules/signIn/SignIn";
 import SignUp from "./modules/signUp/SignUp.js";
 import Toast from "./components/toast";
+import TodoPage from "./pages/TodoPage";
 
 class AppView {
   constructor() {
@@ -18,7 +19,7 @@ class AppView {
   }
   createTodoPage() {
     const app = document.getElementById("root");
-    app.innerHTML = "lorem";
+    app.innerHTML = TodoPage();
   }
   createToast(data) {
     const toast = document.getElementById("toast");
