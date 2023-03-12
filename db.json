@@ -23,60 +23,64 @@
   ],
   "todoList": [
     {
-      "id": 1,
       "email": "manhquan@gmail.com",
-      "todos": [
-        {
-          "id": 1,
-          "title": "learn html",
-          "complete": true
-        },
-        {
-          "id": 2,
-          "title": "learn css",
-          "complete": true
-        },
-        {
-          "id": 3,
-          "title": "learn css",
-          "complete": true
-        },
-        {
-          "id": 4,
-          "title": "learn js",
-          "complete": true
-        },
-        {
-          "id": 5,
-          "title": "learn reactjs",
-          "complete": true
-        },
-        {
-          "id": 6,
-          "title": "learn ts",
-          "complete": true
-        },
-        {
-          "id": 7,
-          "title": "learn express",
-          "complete": true
-        },
-        {
-          "id": 8,
-          "title": "learn nextjs",
-          "complete": false
-        },
-        {
-          "id": 9,
-          "title": "learn nestjs",
-          "complete": false
-        },
-        {
-          "id": 10,
-          "title": "learn react native",
-          "complete": false
-        }
-      ]
+      "id": 1,
+      "title": "learn html",
+      "complete": true
+    },
+    {
+      "email": "manhquan@gmail.com",
+      "id": 2,
+      "title": "learn css",
+      "complete": true
+    },
+    {
+      "email": "manhquan@gmail.com",
+      "id": 3,
+      "title": "learn css",
+      "complete": true
+    },
+    {
+      "email": "manhquan@gmail.com",
+      "id": 4,
+      "title": "learn js",
+      "complete": true
+    },
+    {
+      "email": "manhquan@gmail.com",
+      "id": 5,
+      "title": "learn reactjs",
+      "complete": true
+    },
+    {
+      "email": "manhquan@gmail.com",
+      "id": 6,
+      "title": "learn ts",
+      "complete": true
+    },
+    {
+      "email": "manhquan@gmail.com",
+      "id": 7,
+      "title": "learn express",
+      "complete": true
+    },
+    {
+      "email": "manhquan@gmail.com",
+      "id": 8,
+      "title": "learn nextjs",
+      "complete": false
+    },
+    {
+      "email": "manhquan@gmail.com",
+      "id": 9,
+      "title": "learn nestjs",
+      "complete": false
+    },
+    {
+      "email": "manhquan@gmail.com",
+      "id": 10,
+      "title": "learn react native",
+      "complete": false
     }
   ]
 }
