@@ -1,9 +1,7 @@
 import { FORM } from "../constants/type";
 import VALIDATE from "../constants/validateSchema";
 
-function handleForm(formElm, type = FORM.LOGIN, handler) {
-  if (!formElm) return;
-
+export const handleFormLogin = (formElm, type = FORM.LOGIN, handler) => {
   validate(formElm);
   formElm.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -26,9 +24,19 @@ function handleForm(formElm, type = FORM.LOGIN, handler) {
       if (typeof handler === "function") {
         handler(valueItem);
       }
-    }, 2000);
+    }, 2500);
   });
-}
+};
+
+export const handleFormTodo = (formElm, handle) => {
+  formElm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const input = this.elements["input-todo"];
+    const inputValue = input.value.trim();
+
+    handle(inputValue);
+  });
+};
 
 function validate(formElm) {
   const inputControls = formElm.querySelectorAll(".form-input");
@@ -99,5 +107,3 @@ function validate(formElm) {
     }
   }
 }
-
-export default handleForm;

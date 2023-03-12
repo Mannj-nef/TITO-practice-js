@@ -1,4 +1,4 @@
-import handleForm from "../helper/handleForm";
+import { handleFormLogin } from "../helper/handleForm";
 import { FORM } from "../constants/type";
 
 class AuthView {
@@ -30,12 +30,16 @@ class AuthView {
 
   getLoginForm(handler) {
     const loginForm = document.querySelector("#form-sign-in");
-    handleForm(loginForm, FORM.LOGIN, handler);
+    if (loginForm) {
+      handleFormLogin(loginForm, FORM.LOGIN, handler);
+    }
   }
 
   getRegisterForm(handler) {
     const regesterForm = document.querySelector("#form-sign-up");
-    handleForm(regesterForm, FORM.RESGITER, handler);
+    if (regesterForm) {
+      handleFormLogin(regesterForm, FORM.RESGITER, handler);
+    }
   }
 }
 

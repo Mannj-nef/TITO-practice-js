@@ -1,8 +1,9 @@
 function TodoForm() {
   return `
-    <form class="main-form">
+    <form class="main-form" autocomplete="off">
         <input
             class="main-input"
+            name="input-todo"
             type="text"
             placeholder="Add your new todo..."
         />
