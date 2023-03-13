@@ -7,5 +7,5 @@ import AuthView from "../views/authView";
 import TodoView from "../views/todoView";
 
 const app = AppView;
-const todo = new TodoController(TodoModel, TodoView, AppView);
 const auth = new AuthController(AuthModel, AuthView, AppView);
+const todo = new TodoController(TodoModel, TodoView, AppView);
