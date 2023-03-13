@@ -44,12 +44,45 @@
     }
     &-btn-wrapp {
         flex-shrink: 0;
+        position: relative;
 
-        .btn-replace {
+        .btn-update {
             background-color: $success-color;
         }
         .btn-remove {
             background-color: $error-color;
+        }
+        .todo-confirm-delete {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            position: absolute;
+            @include flex-between;
+            gap: 10px;
+            width: 330px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: $error-opacity;
+            z-index: 10;
+            .btn-confirm-remove-wrapp {
+                flex-shrink: 0;
+                font-size: $text-sm;
+            }
+            .btn-confirm-remove {
+                padding: 8px;
+                color: $bg-primary;
+                background-color: $error-color;
+            }
+            .btn-confirm-remove-cancel {
+                padding: 8px;
+            }
+            p {
+                color: $bg-primary;
+            }
+        }
+        .update-icon,
+        .remove-icon {
+            pointer-events: none;
         }
     }
 }
