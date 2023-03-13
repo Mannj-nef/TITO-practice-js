@@ -2,6 +2,7 @@ import axios from "axios";
 
 class AuthModel {
   constructor() {
+    this.user = {};
     this.endpoint = `${process.env.BASE_URL}/users`;
   }
 

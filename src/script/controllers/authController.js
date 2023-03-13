@@ -50,11 +50,16 @@ class AuthController {
 
   handleLoginSuccess(user) {
     const AppView = this.appView;
+    const AuthModel = this.model;
+    const index = user.email.indexOf("@");
 
     delete user.password;
     const userJson = JSON.stringify(user);
 
+    const userName = user.email.slice(0, index);
+    window.location.search = userName;
     AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGIN_SUCCESS));
+
     setLocalStorage(KEY.LOCALSTORAGE_UESR, userJson);
 
     AppView.showTodoPage();

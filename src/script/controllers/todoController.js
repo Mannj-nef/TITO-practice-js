@@ -13,13 +13,13 @@ class TodoController {
     this.handleRenderTodo();
   }
 
-  handleRenderTodo = async (test = false) => {
+  handleRenderTodo = async (againRenderDelete = false) => {
     const TodoView = this.view;
 
     await this.handleGetTodos();
 
     TodoView.getValueInput(this.handleAddTodo);
-    TodoView.getIdDeleteTodo(this.handleRemoveTodo, test);
+    TodoView.getIdDeleteTodo(this.handleRemoveTodo, againRenderDelete);
   };
 
   handleGetTodoAllTodos = async () => {
@@ -33,15 +33,23 @@ class TodoController {
 
   handleGetTodos = async () => {
     const TodoModel = this.model;
+    const AuthModel = this.authModel;
+
+    const index = window.location.search.indexOf("=");
+    const userName = window.location.search.slice(index + 1);
+
+    console.log(window.location.search);
+
     const TodoView = this.view;
     const user = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
-    if (!user) return;
-    try {
-      await TodoModel.getTodoByEmail(user.email);
-      TodoView.displayTodos(TodoModel.todos);
-    } catch (error) {
-      console.log(error);
+    if (user) {
+      try {
+        await TodoModel.getTodoByEmail(user.email);
+        TodoView.displayTodos(TodoModel.todos);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
