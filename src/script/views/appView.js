@@ -3,15 +3,15 @@ import SignIn from "./modules/signIn/SignIn";
 import SignUp from "./modules/signUp/SignUp.js";
 import Toast from "./components/toast";
 import TodoPage from "./pages/TodoPage";
+import { PAGE } from "../constants/type";
 
 class AppView {
   constructor() {
-    this.createLogin();
+    this.createLogin;
 
     this.createTodoPage;
-    this.showTodoPage;
+    this.showPage;
     this.createToast;
-    this.backLoginPage();
   }
   createLogin() {
     const app = document.getElementById("root");
@@ -30,16 +30,26 @@ class AppView {
     }, 4000);
   }
 
-  showTodoPage() {
-    const LoginPage = document.querySelector(".login");
-    LoginPage.classList.add("login-hidden");
+  showPage(classCurentPage, newPage) {
+    const LoginPage = document.querySelector(`.${classCurentPage}`);
+
+    if (!LoginPage) return;
+    LoginPage.classList.add("hidden");
 
     setTimeout(() => {
-      this.createTodoPage();
+      switch (newPage) {
+        case PAGE.TODO:
+          console.log(0);
+          this.createTodoPage();
+          break;
+        case PAGE.LOGIN:
+          this.createLogin();
+          break;
+        default:
+          break;
+      }
     }, 500);
   }
-
-  backLoginPage() {}
 }
 
 export default new AppView();

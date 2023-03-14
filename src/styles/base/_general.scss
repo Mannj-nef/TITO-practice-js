@@ -24,3 +24,7 @@ a {
 .d-none {
     display: none;
 }
+
+.hidden {
+    transform: translateY(-200%);
+}

@@ -1,5 +1,5 @@
 import MESSAGE from "../constants/message";
-import { KEY } from "../constants/type";
+import { KEY, PAGE } from "../constants/type";
 import { getLocalStorage, setLocalStorage } from "../helper/handlelocalStorage";
 import TOAST from "../helper/handleToast";
 
@@ -55,14 +55,13 @@ class AuthController {
 
     delete user.password;
     const userJson = JSON.stringify(user);
-
-    const userName = user.email.slice(0, index);
-    window.location.search = userName;
-    AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGIN_SUCCESS));
-
     setLocalStorage(KEY.LOCALSTORAGE_UESR, userJson);
 
-    AppView.showTodoPage();
+    const userName = user.email.slice(0, index);
+    AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGIN_SUCCESS));
+
+    AppView.showPage("login", PAGE.TODO);
+    window.location.search = userName;
   }
 
   handleCheckLogin = async () => {

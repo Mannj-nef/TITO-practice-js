@@ -1,4 +1,6 @@
+import { KEY } from "../constants/type";
 import { handleFormTodo } from "../helper/handleForm";
+import { clearLocalStorage } from "../helper/handlelocalStorage";
 import TodoConfirmDelete from "./modules/todoList/TodoConfirmDelete";
 import TodoItem from "./modules/todoList/TodoItem";
 
@@ -22,7 +24,6 @@ class TodoView {
   }
 
   displayTodos(todos) {
-    console.log(todos);
     const todoListElm = document.querySelector(".todo-list");
     if (todos.length > 0) {
       const todoList = todos.map((todoItem) => TodoItem(todoItem));
@@ -75,6 +76,18 @@ class TodoView {
         if (!id) return;
         this.confirmDelete(id, TodoConfirm, todoItem, todoItemParent, handle);
       });
+    });
+  }
+
+  logOutView(handle) {
+    const btnLogout = document.querySelector(".header-logout");
+
+    btnLogout.addEventListener("click", () => {
+      clearLocalStorage(KEY.LOCALSTORAGE_UESR);
+
+      if (typeof handle === "function") {
+        handle();
+      }
     });
   }
 }

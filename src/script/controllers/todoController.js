@@ -1,5 +1,5 @@
 import MESSAGE from "../constants/message";
-import { KEY } from "../constants/type";
+import { KEY, PAGE } from "../constants/type";
 import { handleCreateId } from "../helper/handleCreateId";
 import { getLocalStorage } from "../helper/handlelocalStorage";
 import TOAST from "../helper/handleToast";
@@ -15,8 +15,9 @@ class TodoController {
 
   handleRenderTodo = async () => {
     const TodoView = this.view;
-    await this.handleGetTodos();
+    TodoView.logOutView(this.handleLogout);
 
+    await this.handleGetTodos();
     TodoView.getValueInput(this.handleAddTodo);
     TodoView.getIdDeleteTodo(this.handleRemoveTodo);
   };
@@ -32,7 +33,6 @@ class TodoController {
 
   handleGetTodos = async () => {
     const TodoModel = this.model;
-    const AuthModel = this.authModel;
 
     const index = window.location.search.indexOf("?");
     const userName = window.location.search.slice(index + 1);
@@ -91,6 +91,13 @@ class TodoController {
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
     }
+  };
+
+  handleLogout = () => {
+    const AppView = this.appView;
+    AppView.showPage("todo-page", PAGE.LOGIN);
+    // window.location.search = "";
+    AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGOUT_SUCCESS));
   };
 }
 export default TodoController;

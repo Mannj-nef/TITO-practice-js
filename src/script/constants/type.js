@@ -11,3 +11,8 @@ export const TOAST = {
   SUCCESS: "success",
   ERROR: "error",
 };
+
+export const PAGE = {
+  LOGIN: "loginPage",
+  TODO: "todoPage",
+};

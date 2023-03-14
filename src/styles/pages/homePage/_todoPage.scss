@@ -5,6 +5,9 @@
     &-page {
         background-color: $bg-secon;
         min-height: 100vh;
+
+        position: relative;
+        transition: all 0.3s ease-in;
     }
 }
 .todo {
