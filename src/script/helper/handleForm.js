@@ -38,10 +38,18 @@ export const handleFormTodo = (formElm, handle) => {
       input.value = "";
       return;
     }
-    if (typeof handle === "function") {
-      handle(inputValue);
-      input.value = "";
-    }
+
+    const button = formElm.querySelector(".main-btn");
+    console.log(button);
+    button.classList.add("button-loading");
+
+    const timeOut = setTimeout(() => {
+      button.classList.remove("button-loading");
+      if (typeof handle === "function") {
+        handle(inputValue);
+        input.value = "";
+      }
+    }, 500);
   });
 };
 
