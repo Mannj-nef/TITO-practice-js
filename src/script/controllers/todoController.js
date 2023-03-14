@@ -10,16 +10,15 @@ class TodoController {
     this.view = view;
     this.appView = appView;
 
-    this.handleRenderTodo();
+    this.view.domLoadTodoView(this.handleRenderTodo);
   }
 
-  handleRenderTodo = async (againRenderDelete = false) => {
+  handleRenderTodo = async () => {
     const TodoView = this.view;
-
     await this.handleGetTodos();
 
     TodoView.getValueInput(this.handleAddTodo);
-    TodoView.getIdDeleteTodo(this.handleRemoveTodo, againRenderDelete);
+    TodoView.getIdDeleteTodo(this.handleRemoveTodo);
   };
 
   handleGetTodoAllTodos = async () => {
@@ -35,15 +34,12 @@ class TodoController {
     const TodoModel = this.model;
     const AuthModel = this.authModel;
 
-    const index = window.location.search.indexOf("=");
+    const index = window.location.search.indexOf("?");
     const userName = window.location.search.slice(index + 1);
-
-    console.log(window.location.search);
-
     const TodoView = this.view;
     const user = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
-    if (user) {
+    if (userName || user) {
       try {
         await TodoModel.getTodoByEmail(user.email);
         TodoView.displayTodos(TodoModel.todos);
@@ -69,13 +65,14 @@ class TodoController {
       };
 
       if (todoItem) {
-        const againRender = true;
-
         TodoModel.todos.push(todoItem);
-        TodoView.displayTodos(TodoModel.todos, againRender);
-        this.handleRenderTodo(againRender);
+        TodoView.displayTodos(TodoModel.todos);
+
         await TodoModel.addTodo(todoItem);
         AppView.createToast(TOAST.SUCCESS(MESSAGE.ADD_TODO_SUCCESS));
+
+        // get id of new todo when just  add
+        TodoView.getIdDeleteTodo(this.handleRemoveTodo);
       }
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
