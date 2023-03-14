@@ -63,6 +63,8 @@ class TodoView {
 
     [...todoItemsBtnRemove].forEach((btnItem) => {
       btnItem.addEventListener("click", (e) => {
+        e.stopPropagation();
+
         const target = e.target;
         const id = target.dataset.id;
         const todoItem = target.parentNode.parentNode;
@@ -75,6 +77,17 @@ class TodoView {
 
         if (!id) return;
         this.confirmDelete(id, TodoConfirm, todoItem, todoItemParent, handle);
+      });
+    });
+  }
+
+  activeTodoWhenDone() {
+    const todos = document.querySelectorAll(".todo-item");
+    [...todos].forEach((todo) => {
+      todo.addEventListener("click", (e) => {
+        const target = e.target;
+        const checkBoxElm = target.querySelector(".checkbox-input");
+        checkBoxElm.classList.toggle("checkbox-input-checked");
       });
     });
   }

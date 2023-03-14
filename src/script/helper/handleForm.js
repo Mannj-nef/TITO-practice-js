@@ -40,7 +40,6 @@ export const handleFormTodo = (formElm, handle) => {
     }
 
     const button = formElm.querySelector(".main-btn");
-    console.log(button);
     button.classList.add("button-loading");
 
     const timeOut = setTimeout(() => {

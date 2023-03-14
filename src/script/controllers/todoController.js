@@ -20,6 +20,7 @@ class TodoController {
     await this.handleGetTodos();
     TodoView.getValueInput(this.handleAddTodo);
     TodoView.getIdDeleteTodo(this.handleRemoveTodo);
+    TodoView.activeTodoWhenDone();
   };
 
   handleGetTodoAllTodos = async () => {
@@ -72,6 +73,7 @@ class TodoController {
         AppView.createToast(TOAST.SUCCESS(MESSAGE.ADD_TODO_SUCCESS));
 
         // get id of new todo when just  add
+        TodoView.activeTodoWhenDone();
         TodoView.getIdDeleteTodo(this.handleRemoveTodo);
       }
     } catch (error) {
