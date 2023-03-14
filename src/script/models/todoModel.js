@@ -30,9 +30,16 @@ class TodoModel {
     await axios.post(endpointUrl, todo);
   }
 
+  async update(id, todoData) {
+    const endpointUrl = `${this.endpoint}/${id}`;
+    const { data } = await axios.patch(endpointUrl, todoData);
+    return data;
+  }
+
   async removeTodo(id) {
     const endpointUrl = `${this.endpoint}/${id}`;
-    await axios.delete(endpointUrl);
+    const { data } = await axios.delete(endpointUrl);
+    return data;
   }
 }
 
