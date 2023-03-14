@@ -25,13 +25,15 @@ function Header() {
     <header class="header">
     <h1 class="header-title">YNDER TODO</h1>
     <ul class="nav-list">
-    ${links.map(
-      (item) => `<li class="nav-item">
+    ${links
+      .map(
+        (item) => `<li class="nav-item">
         <a href=${item.href} class="nav-link">
           ${item.title}
         </a>
       </li>`
-    )}
+      )
+      .join("")}
       
     </ul>
     <div>

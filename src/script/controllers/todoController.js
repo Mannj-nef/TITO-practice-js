@@ -20,7 +20,7 @@ class TodoController {
     await this.handleGetTodos();
     TodoView.getValueInput(this.handleAddTodo);
     TodoView.getIdDeleteTodo(this.handleRemoveTodo);
-    TodoView.activeTodoWhenDone();
+    TodoView.activeTodoWhenDone(this.handleActiveWhenDone);
   };
 
   handleGetTodoAllTodos = async () => {
@@ -81,13 +81,26 @@ class TodoController {
     }
   };
 
+  handleActiveWhenDone = async (id, status) => {
+    const TodoModel = this.model;
+    const AppView = this.appView;
+
+    try {
+      console.log({ status });
+      const data = await TodoModel.update(id, { complete: status });
+      console.log(data);
+    } catch (error) {
+      AppView.createToast(TOAST.ERROR(error));
+    }
+  };
+
   handleRemoveTodo = async (id) => {
     const TodoModel = this.model;
     const AppView = this.appView;
     try {
       if (id) {
         const numberId = id;
-        await TodoModel.removeTodo(numberId);
+        const data = await TodoModel.removeTodo(numberId);
         AppView.createToast(TOAST.SUCCESS(MESSAGE.DELETE_TODO_SUCCESS));
       }
     } catch (error) {

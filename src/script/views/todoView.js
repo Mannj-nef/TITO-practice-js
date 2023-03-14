@@ -27,7 +27,7 @@ class TodoView {
     const todoListElm = document.querySelector(".todo-list");
     if (todos.length > 0) {
       const todoList = todos.map((todoItem) => TodoItem(todoItem));
-      todoListElm.innerHTML = todoList.reverse();
+      todoListElm.innerHTML = todoList.reverse().join("");
     }
   }
 
@@ -81,13 +81,21 @@ class TodoView {
     });
   }
 
-  activeTodoWhenDone() {
+  activeTodoWhenDone(handle) {
     const todos = document.querySelectorAll(".todo-item");
     [...todos].forEach((todo) => {
       todo.addEventListener("click", (e) => {
         const target = e.target;
+        const id = target.dataset.id_todo;
+        const classChecked = "checkbox-input-checked";
+
         const checkBoxElm = target.querySelector(".checkbox-input");
-        checkBoxElm.classList.toggle("checkbox-input-checked");
+        checkBoxElm.classList.toggle(classChecked);
+        const status = checkBoxElm.classList.contains(classChecked);
+
+        if (typeof handle === "function") {
+          handle(id, status);
+        }
       });
     });
   }
