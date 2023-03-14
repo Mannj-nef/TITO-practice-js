@@ -3,8 +3,14 @@ import { FORM } from "../constants/type";
 
 class AuthView {
   constructor() {
-    this.handleChangeForm();
-    this.getLoginForm();
+    this.domloadLoginView();
+  }
+
+  domloadLoginView() {
+    window.addEventListener("load", () => {
+      this.getLoginForm();
+      this.handleChangeForm();
+    });
   }
 
   handleChangeForm() {
