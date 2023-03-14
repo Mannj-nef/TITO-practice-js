@@ -72,9 +72,12 @@ class AuthController {
 
       const userJson = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
-      if (!userJson) return;
-      const user = await Auth.fildEmailUser(userJson);
+      if (!userJson) {
+        AppView.createLogin();
+        return;
+      }
 
+      const user = await Auth.fildEmailUser(userJson);
       if (user) {
         AppView.createTodoPage();
       }
