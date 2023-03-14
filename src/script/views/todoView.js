@@ -5,28 +5,28 @@ import TodoItem from "./modules/todoList/TodoItem";
 class TodoView {
   constructor() {}
 
-  getValueInput(handle) {
+  domLoadTodoView(handle) {
     window.addEventListener("load", () => {
-      const form = document.querySelector(".main-form");
-      if (form) {
-        handleFormTodo(form, handle);
+      const todoPage = document.querySelector(".todo-page");
+      if (todoPage && typeof handle === "function") {
+        handle();
       }
     });
   }
 
-  displayTodos(todos, again = false) {
-    const handleRender = () => {
-      const todoListElm = document.querySelector(".todo-list");
-      if (todos.length > 0) {
-        const todoList = todos.map((todoItem) => TodoItem(todoItem));
-        todoListElm.innerHTML = todoList.reverse();
-      }
-    };
+  getValueInput(handle) {
+    const form = document.querySelector(".main-form");
+    if (form) {
+      handleFormTodo(form, handle);
+    }
+  }
 
-    if (!again) {
-      window.addEventListener("load", handleRender);
-    } else {
-      handleRender();
+  displayTodos(todos) {
+    console.log(todos);
+    const todoListElm = document.querySelector(".todo-list");
+    if (todos.length > 0) {
+      const todoList = todos.map((todoItem) => TodoItem(todoItem));
+      todoListElm.innerHTML = todoList.reverse();
     }
   }
 
@@ -54,38 +54,28 @@ class TodoView {
     }
   }
 
-  getIdDeleteTodo(handle, again = false) {
-    const handleGetIdInput = () => {
-      const todoList = document.querySelector(".todo-list");
-      if (!todoList) return;
+  getIdDeleteTodo(handle) {
+    const todoList = document.querySelector(".todo-list");
+    if (!todoList) return;
 
-      const todoItemsBtnRemove = todoList.querySelectorAll(".btn-remove");
+    const todoItemsBtnRemove = todoList.querySelectorAll(".btn-remove");
 
-      [...todoItemsBtnRemove].forEach((btnItem) => {
-        btnItem.addEventListener("click", (e) => {
-          const target = e.target;
-          const id = target.dataset.id;
-          const todoItem = target.parentNode.parentNode;
-          const todoItemParent = todoItem.parentNode;
+    [...todoItemsBtnRemove].forEach((btnItem) => {
+      btnItem.addEventListener("click", (e) => {
+        const target = e.target;
+        const id = target.dataset.id;
+        const todoItem = target.parentNode.parentNode;
+        const todoItemParent = todoItem.parentNode;
 
-          console.log(target);
+        //  create todoConfirm
+        const todoConfirm = TodoConfirmDelete();
+        btnItem.insertAdjacentHTML("afterend", todoConfirm);
+        const TodoConfirm = document.querySelector(".todo-confirm-delete");
 
-          //  create todoConfirm
-          const todoConfirm = TodoConfirmDelete();
-          btnItem.insertAdjacentHTML("afterend", todoConfirm);
-          const TodoConfirm = document.querySelector(".todo-confirm-delete");
-
-          if (!id) return;
-          this.confirmDelete(id, TodoConfirm, todoItem, todoItemParent, handle);
-        });
+        if (!id) return;
+        this.confirmDelete(id, TodoConfirm, todoItem, todoItemParent, handle);
       });
-    };
-
-    if (!again) {
-      window.addEventListener("load", handleGetIdInput);
-    } else {
-      handleGetIdInput();
-    }
+    });
   }
 }
 
