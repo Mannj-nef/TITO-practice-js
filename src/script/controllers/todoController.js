@@ -1,7 +1,10 @@
 import MESSAGE from "../constants/message";
 import { ACTION_FORM, KEY, PAGE } from "../constants/type";
 import { handleCreateId } from "../helper/handleCreateId";
-import { getLocalStorage } from "../helper/handlelocalStorage";
+import {
+  getLocalStorage,
+  clearLocalStorage,
+} from "../helper/handlelocalStorage";
 import TOAST from "../helper/handleToast";
 
 class TodoController {
@@ -113,9 +116,10 @@ class TodoController {
             itemTodo.title = todo;
           }
         });
-        TodoView.updateSuccessTodoView();
+        TodoView.resetFormTodoView();
         TodoView.displayTodos(TodoModel.todos);
         AppView.createToast(TOAST.SUCCESS(MESSAGE.UPDATE_TODO_SUCCESS));
+        clearLocalStorage(KEY.LOCALSTORAGE_ID_UPDATE);
 
         this.renderNewTodoWhenChange();
       }
@@ -138,10 +142,25 @@ class TodoController {
   handleRemoveTodo = async (id) => {
     const TodoModel = this.model;
     const AppView = this.appView;
+    const TodoView = this.view;
+
     try {
       if (id) {
         const numberId = id;
-        const data = await TodoModel.removeTodo(numberId);
+        await TodoModel.removeTodo(numberId);
+
+        const newTodo = TodoModel.todos.filter((todo) => todo.id !== id);
+        TodoModel.todos = newTodo;
+
+        const idTodoLocalStorege = getLocalStorage(KEY.LOCALSTORAGE_ID_UPDATE);
+
+        if (id === idTodoLocalStorege) {
+          TodoView.resetFormTodoView();
+        }
+
+        TodoView.displayTodos(TodoModel.todos);
+        this.renderNewTodoWhenChange();
+
         AppView.createToast(TOAST.SUCCESS(MESSAGE.DELETE_TODO_SUCCESS));
       }
     } catch (error) {
