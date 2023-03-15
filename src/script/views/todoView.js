@@ -131,6 +131,8 @@ class TodoView {
 
       if (!form) return;
       const inputTodo = form.querySelector(".main-input");
+
+      inputTodo.focus();
       inputTodo.value = todoValue.trim();
 
       const btnRemoveValue = form.querySelector(".btn-remove-form");

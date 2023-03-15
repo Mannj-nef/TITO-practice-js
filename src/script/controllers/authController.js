@@ -34,23 +34,21 @@ class AuthController {
     const AppView = this.appView;
     try {
       const hasUser = await Auth.fildEmailUser(data);
-      console.log(hasUser);
       if (hasUser.length > 0) {
         AppView.createToast(TOAST.ERROR(MESSAGE.ACCOUNT_EXISTS));
       } else {
-        // const user = await Auth.registerUser(data);
-        // if (user) {
-        //   this.handleLoginSuccess(user);
-        // }
+        const user = await Auth.registerUser(data);
+        if (user) {
+          this.handleLoginSuccess(user);
+        }
       }
     } catch (error) {
-      console.log(error);
+      AppView.createToast(TOAST.ERROR(error));
     }
   };
 
   handleLoginSuccess(user) {
     const AppView = this.appView;
-    const AuthModel = this.model;
     const index = user.email.indexOf("@");
 
     delete user.password;
