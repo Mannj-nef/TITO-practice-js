@@ -1,4 +1,4 @@
-import { FORM } from "../constants/type";
+import { ACTION_FORM, FORM } from "../constants/type";
 import VALIDATE from "../constants/validateSchema";
 
 export const handleFormLogin = (formElm, type = FORM.LOGIN, handler) => {
@@ -31,7 +31,10 @@ export const handleFormLogin = (formElm, type = FORM.LOGIN, handler) => {
 export const handleFormTodo = (formElm, handle) => {
   formElm.addEventListener("submit", function (e) {
     e.preventDefault();
+    const actionElm = formElm.querySelector(".action-todo");
     const input = this.elements["input-todo"];
+
+    const action = actionElm.textContent;
     let inputValue = input.value.trim();
 
     if (inputValue <= 0) {
@@ -45,7 +48,7 @@ export const handleFormTodo = (formElm, handle) => {
     const timeOut = setTimeout(() => {
       button.classList.remove("button-loading");
       if (typeof handle === "function") {
-        handle(inputValue);
+        handle(inputValue, action);
         input.value = "";
       }
     }, 500);
