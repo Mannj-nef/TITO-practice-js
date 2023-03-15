@@ -1,9 +1,12 @@
+import ERROR_VALIDATE from "../constants/errorMessage";
 import { ACTION_FORM, FORM } from "../constants/type";
 import VALIDATE from "../constants/validateSchema";
 
 export const handleFormLogin = (formElm, type = FORM.LOGIN, handler) => {
   validate(formElm);
+
   formElm.addEventListener("submit", function (e) {
+    const inputElms = formElm.querySelectorAll(".form-input");
     e.preventDefault();
 
     const valueItem = {
@@ -15,16 +18,23 @@ export const handleFormLogin = (formElm, type = FORM.LOGIN, handler) => {
       valueItem.confirmPassword = this.elements["confirm-password"].value;
     }
 
-    const button = formElm.querySelector(".submit-form");
-    button.classList.add("button-loading");
+    const invalid = [...inputElms].some((item) =>
+      item.classList.contains("invalid")
+    );
+    const emptyValue = Object.values(valueItem).some((value) => value <= 0);
 
-    const timeOut = setTimeout(() => {
-      button.classList.remove("button-loading");
+    if (!invalid && !emptyValue) {
+      const button = formElm.querySelector(".submit-form");
+      button.classList.add("button-loading");
 
-      if (typeof handler === "function") {
-        handler(valueItem);
-      }
-    }, 2500);
+      const timeOut = setTimeout(() => {
+        button.classList.remove("button-loading");
+
+        if (typeof handler === "function") {
+          handler(valueItem);
+        }
+      }, 2500);
+    }
   });
 };
 
@@ -74,18 +84,32 @@ function validate(formElm) {
   function handleInput(e, paramenter, inputControls) {
     const inputPassword = inputControls[1];
     const inputTarget = e.target;
+    const textErrorElm = inputTarget.nextElementSibling;
     const valueInput = inputTarget.value;
 
     if (paramenter === "input") {
       if (valueInput.length === 0) {
         inputTarget.classList.remove("border-invalid");
         inputTarget.classList.remove("invalid");
-        return;
+      } else {
+        if (inputTarget.name === "email") {
+          textErrorElm.textContent = ERROR_VALIDATE.EMAIL_NOT_VALID;
+        }
+        if (inputTarget.name === "password") {
+          textErrorElm.textContent = ERROR_VALIDATE.PASS_MIN_LENGTH;
+        }
       }
       checkInput(inputTarget, valueInput, inputPassword);
     }
 
     if (paramenter === "blur") {
+      if (valueInput.length <= 0) {
+        if (inputTarget.name === "email") {
+          textErrorElm.textContent = ERROR_VALIDATE.EMAIL_REQUIRED;
+        } else if (inputTarget.name === "password") {
+          textErrorElm.textContent = ERROR_VALIDATE.PASS_REQUIRED;
+        }
+      }
       checkInput(inputTarget, valueInput, inputPassword);
     }
 
@@ -96,6 +120,8 @@ function validate(formElm) {
 
   function checkInput(inputTarget, value, inputPassword) {
     const inputName = inputTarget.name;
+    const textErrorElm = inputTarget.nextElementSibling;
+
     switch (inputName) {
       case "email":
         const validateEmail = regexEmail.test(value);
@@ -109,6 +135,7 @@ function validate(formElm) {
         const passwordValue = inputPassword.value;
         const validateConfirmPassword = value === passwordValue;
         handleValid(validateConfirmPassword, inputTarget, "invalid");
+        textErrorElm.textContent = ERROR_VALIDATE.PASS_NOT_MATCH;
         break;
 
       default:

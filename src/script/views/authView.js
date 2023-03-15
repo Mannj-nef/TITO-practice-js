@@ -10,6 +10,7 @@ class AuthView {
     window.addEventListener("load", () => {
       this.getLoginForm();
       this.handleChangeForm();
+      this.handleShowPassword();
     });
   }
 
@@ -46,6 +47,30 @@ class AuthView {
     const regesterForm = document.querySelector("#form-sign-up");
     if (regesterForm) {
       handleFormLogin(regesterForm, FORM.RESGITER, handler);
+    }
+  }
+
+  handleShowPassword() {
+    // sign in
+    const loginForm = document.querySelector("#form-sign-in");
+    const InputPasswordSignIn = document.querySelector("#password-signIn");
+    // sign up
+    const regesterForm = document.querySelector("#form-sign-up");
+    const InputPasswordSignUp = document.querySelector("#password-signUp");
+
+    handleShow(loginForm, InputPasswordSignIn);
+    handleShow(regesterForm, InputPasswordSignUp);
+
+    function handleShow(formElm, InputPassword) {
+      const iconShow = formElm.querySelector(".show-password");
+      iconShow.addEventListener("click", (e) => {
+        const inputType = InputPassword.getAttribute("type");
+        if (inputType === "password") {
+          InputPassword.setAttribute("type", "text");
+        } else {
+          InputPassword.setAttribute("type", "password");
+        }
+      });
     }
   }
 }

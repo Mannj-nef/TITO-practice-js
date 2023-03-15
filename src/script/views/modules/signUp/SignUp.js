@@ -19,7 +19,7 @@ function SignUp() {
         <label for="password-signUP" class="form-label">Password</label>
         <div class="form-wrapp-password">
           <input
-            id="password-signUP"
+            id="password-signUp"
             name="password"
             type="password"
             class="form-input"
