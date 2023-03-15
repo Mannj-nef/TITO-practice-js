@@ -101,6 +101,7 @@
     }
     &-form {
         position: relative;
+        overflow: hidden;
         .button-loading {
             .loading {
                 display: block;
@@ -120,12 +121,40 @@
         background-color: $bg-graye2;
         padding-right: 100px;
     }
-    &-btn {
-        cursor: pointer;
+    &-action {
         position: absolute;
         right: 0;
+        top: 0;
         height: 100%;
-        padding: 20px;
+        gap: 20px;
+
+        @include flex-center;
+
+        .btn-remove-form {
+            --size: 20px;
+            width: var(--size);
+            height: var(--size);
+            padding: 4px;
+            background-color: #aeaaaa;
+            border-radius: 100%;
+            border: none;
+            cursor: pointer;
+            display: none;
+
+            i {
+                font-size: $text-sm;
+                color: $primary-color;
+            }
+        }
+        .main-update.btn-remove-form {
+            @include flex-center;
+        }
+    }
+
+    &-btn {
+        cursor: pointer;
+        padding: 10px;
+        height: 100%;
         width: 90px;
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;

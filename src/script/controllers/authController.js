@@ -54,8 +54,7 @@ class AuthController {
     const index = user.email.indexOf("@");
 
     delete user.password;
-    const userJson = JSON.stringify(user);
-    setLocalStorage(KEY.LOCALSTORAGE_UESR, userJson);
+    setLocalStorage(KEY.LOCALSTORAGE_UESR, user);
 
     const userName = user.email.slice(0, index);
     AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGIN_SUCCESS));

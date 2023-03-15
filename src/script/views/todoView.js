@@ -1,6 +1,9 @@
-import { KEY } from "../constants/type";
+import { ACTION_FORM, KEY } from "../constants/type";
 import { handleFormTodo } from "../helper/handleForm";
-import { clearLocalStorage } from "../helper/handlelocalStorage";
+import {
+  clearLocalStorage,
+  setLocalStorage,
+} from "../helper/handlelocalStorage";
 import TodoConfirmDelete from "./modules/todoList/TodoConfirmDelete";
 import TodoItem from "./modules/todoList/TodoItem";
 
@@ -98,6 +101,61 @@ class TodoView {
         }
       });
     });
+  }
+
+  getValueUpdateTodoView() {
+    const todoList = document.querySelector(".todo-list");
+
+    if (!todoList) return;
+    const todoItemBtnUpdate = todoList.querySelectorAll(".btn-update");
+    [...todoItemBtnUpdate].forEach((btnUpdate) => {
+      btnUpdate.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const target = e.target;
+        const id = target.dataset.id;
+        const todoItem = target.parentNode.parentNode;
+
+        if (!todoItem.classList.contains("todo-item")) return;
+
+        const todoLable = todoItem.querySelector(".checkbox-label");
+        const todoValue = todoLable.textContent;
+
+        setLocalStorage(KEY.LOCALSTORAGE_ID_UPDATE, id);
+
+        handleForm(todoValue);
+      });
+    });
+
+    function handleForm(todoValue) {
+      const form = document.querySelector(".main-form");
+
+      if (!form) return;
+      const inputTodo = form.querySelector(".main-input");
+      inputTodo.value = todoValue.trim();
+
+      const btnRemoveValue = form.querySelector(".btn-remove-form");
+      btnRemoveValue.classList.add("main-update");
+
+      const actionTodo = form.querySelector(".action-todo");
+      actionTodo.textContent = ACTION_FORM.UPDATE;
+
+      btnRemoveValue.addEventListener("click", (e) => {
+        e.stopPropagation();
+        inputTodo.value = "";
+        actionTodo.textContent = ACTION_FORM.ADD;
+        btnRemoveValue.classList.remove("main-update");
+      });
+    }
+  }
+
+  updateSuccessTodoView() {
+    const form = document.querySelector(".main-form");
+    if (!form) return;
+    const btnRemoveValue = form.querySelector(".btn-remove-form");
+    const actionTodo = form.querySelector(".action-todo");
+
+    btnRemoveValue.classList.remove("main-update");
+    actionTodo.textContent = ACTION_FORM.ADD;
   }
 
   logOutView(handle) {

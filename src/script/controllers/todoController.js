@@ -1,5 +1,5 @@
 import MESSAGE from "../constants/message";
-import { KEY, PAGE } from "../constants/type";
+import { ACTION_FORM, KEY, PAGE } from "../constants/type";
 import { handleCreateId } from "../helper/handleCreateId";
 import { getLocalStorage } from "../helper/handlelocalStorage";
 import TOAST from "../helper/handleToast";
@@ -18,10 +18,19 @@ class TodoController {
     TodoView.logOutView(this.handleLogout);
 
     await this.handleGetTodos();
-    TodoView.getValueInput(this.handleAddTodo);
+    TodoView.getValueUpdateTodoView();
+    TodoView.getValueInput(this.handlesubmit);
     TodoView.getIdDeleteTodo(this.handleRemoveTodo);
     TodoView.activeTodoWhenDone(this.handleActiveWhenDone);
   };
+
+  renderNewTodoWhenChange() {
+    const TodoView = this.view;
+
+    TodoView.getValueUpdateTodoView();
+    TodoView.getIdDeleteTodo(this.handleRemoveTodo);
+    TodoView.activeTodoWhenDone(this.handleActiveWhenDone);
+  }
 
   handleGetTodoAllTodos = async () => {
     const TodoModel = this.model;
@@ -50,10 +59,19 @@ class TodoController {
     }
   };
 
+  handlesubmit = (todo, action) => {
+    if (action === ACTION_FORM.ADD) {
+      this.handleAddTodo(todo);
+    } else if (action === ACTION_FORM.UPDATE) {
+      this.handleUpdateTodo(todo);
+    }
+  };
+
   handleAddTodo = async (todo) => {
     const TodoModel = this.model;
     const TodoView = this.view;
     const AppView = this.appView;
+
     const user = getLocalStorage(KEY.LOCALSTORAGE_UESR);
     const email = user.email;
 
@@ -67,14 +85,39 @@ class TodoController {
 
       if (todoItem) {
         TodoModel.todos.push(todoItem);
-        TodoView.displayTodos(TodoModel.todos);
 
         await TodoModel.addTodo(todoItem);
+        TodoView.displayTodos(TodoModel.todos);
         AppView.createToast(TOAST.SUCCESS(MESSAGE.ADD_TODO_SUCCESS));
 
         // get id of new todo when just  add
-        TodoView.activeTodoWhenDone();
-        TodoView.getIdDeleteTodo(this.handleRemoveTodo);
+        this.renderNewTodoWhenChange();
+      }
+    } catch (error) {
+      AppView.createToast(TOAST.ERROR(error));
+    }
+  };
+
+  handleUpdateTodo = async (todo) => {
+    const TodoModel = this.model;
+    const TodoView = this.view;
+    const AppView = this.appView;
+    const id = getLocalStorage(KEY.LOCALSTORAGE_ID_UPDATE);
+
+    try {
+      const data = await TodoModel.updateTodo(id, { title: todo });
+
+      if (data) {
+        TodoModel.todos.forEach((itemTodo) => {
+          if (itemTodo.id === id) {
+            itemTodo.title = todo;
+          }
+        });
+        TodoView.updateSuccessTodoView();
+        TodoView.displayTodos(TodoModel.todos);
+        AppView.createToast(TOAST.SUCCESS(MESSAGE.UPDATE_TODO_SUCCESS));
+
+        this.renderNewTodoWhenChange();
       }
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
@@ -86,9 +129,7 @@ class TodoController {
     const AppView = this.appView;
 
     try {
-      console.log({ status });
-      const data = await TodoModel.update(id, { complete: status });
-      console.log(data);
+      const data = await TodoModel.updateTodo(id, { complete: status });
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
     }

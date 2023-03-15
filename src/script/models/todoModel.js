@@ -30,7 +30,7 @@ class TodoModel {
     await axios.post(endpointUrl, todo);
   }
 
-  async update(id, todoData) {
+  async updateTodo(id, todoData) {
     const endpointUrl = `${this.endpoint}/${id}`;
     const { data } = await axios.patch(endpointUrl, todoData);
     return data;

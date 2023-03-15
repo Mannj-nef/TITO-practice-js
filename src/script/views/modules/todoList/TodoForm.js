@@ -7,10 +7,15 @@ function TodoForm() {
             type="text"
             placeholder="Add your new todo..."
         />
-        <button type="submit" class="main-btn">
-          <div class="loading d-none"></div>
-          <span>Add</span>
-        </button>
+       <div class="main-action">
+          <button type="button" class="btn-remove-form">
+            <i class="ti-close"></i>
+          </button>
+          <button type="submit" class="main-btn">
+            <div class="loading d-none"></div>
+            <span class="action-todo">ADD</span>
+          </button>
+       </div >
     </form>
   `;
 }
