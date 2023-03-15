@@ -19,7 +19,7 @@ function SignUp() {
         <label for="password-signUP" class="form-label">Password</label>
         <div class="form-wrapp-password">
           <input
-            id="password-signUP"
+            id="password-signUp"
             name="password"
             type="password"
             class="form-input"
@@ -27,7 +27,7 @@ function SignUp() {
           />
           <p class="input-error">Please enter at least 6 characters</p>
           <div class="show-password">
-            <img src="./src/assets/iconEye.svg" alt=""></img>
+            <i class="ti-eye"></i>
           </div>
         </div>
       </div>
