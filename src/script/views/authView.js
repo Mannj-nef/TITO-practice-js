@@ -58,8 +58,10 @@ class AuthView {
     const regesterForm = document.querySelector("#form-sign-up");
     const InputPasswordSignUp = document.querySelector("#password-signUp");
 
-    handleShow(loginForm, InputPasswordSignIn);
-    handleShow(regesterForm, InputPasswordSignUp);
+    if (loginForm || regesterForm) {
+      handleShow(loginForm, InputPasswordSignIn);
+      handleShow(regesterForm, InputPasswordSignUp);
+    }
 
     function handleShow(formElm, InputPassword) {
       const iconShow = formElm.querySelector(".show-password");

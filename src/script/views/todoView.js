@@ -43,7 +43,6 @@ class TodoView {
       if (typeof handle === "function") {
         handle(id);
         RemoveConfirm();
-        todoItemParent.removeChild(todoItem);
       }
     });
 
@@ -73,13 +72,22 @@ class TodoView {
         const todoItem = target.parentNode.parentNode;
         const todoItemParent = todoItem.parentNode;
 
+        const todoConfirmCurrent = document.querySelector(
+          ".todo-confirm-delete"
+        );
+
+        if (todoConfirmCurrent) {
+          const confirmParrent = todoConfirmCurrent.parentNode;
+          confirmParrent.removeChild(todoConfirmCurrent);
+        }
+
         //  create todoConfirm
-        const todoConfirm = TodoConfirmDelete();
-        btnItem.insertAdjacentHTML("afterend", todoConfirm);
-        const TodoConfirm = document.querySelector(".todo-confirm-delete");
+        const TodoConfirm = TodoConfirmDelete();
+        btnItem.insertAdjacentHTML("afterend", TodoConfirm);
+        const todoConfirm = document.querySelector(".todo-confirm-delete");
 
         if (!id) return;
-        this.confirmDelete(id, TodoConfirm, todoItem, todoItemParent, handle);
+        this.confirmDelete(id, todoConfirm, todoItem, todoItemParent, handle);
       });
     });
   }
@@ -131,6 +139,8 @@ class TodoView {
 
       if (!form) return;
       const inputTodo = form.querySelector(".main-input");
+
+      inputTodo.focus();
       inputTodo.value = todoValue.trim();
 
       const btnRemoveValue = form.querySelector(".btn-remove-form");
@@ -148,7 +158,7 @@ class TodoView {
     }
   }
 
-  updateSuccessTodoView() {
+  resetFormTodoView() {
     const form = document.querySelector(".main-form");
     if (!form) return;
     const btnRemoveValue = form.querySelector(".btn-remove-form");

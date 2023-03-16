@@ -38,8 +38,7 @@ class TodoModel {
 
   async removeTodo(id) {
     const endpointUrl = `${this.endpoint}/${id}`;
-    const { data } = await axios.delete(endpointUrl);
-    return data;
+    await axios.delete(endpointUrl);
   }
 }
 
