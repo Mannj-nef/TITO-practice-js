@@ -2,4 +2,3 @@
 /.parcel-cache
 /dist
 /package-lock.json
-.env

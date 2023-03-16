@@ -1,13 +1,22 @@
-import handleForm from "../helper/handleForm";
+import { handleFormLogin } from "../helper/handleForm";
 import { FORM } from "../constants/type";
 
 class AuthView {
   constructor() {
-    this.handleChangeForm();
-    this.getLoginForm();
+    this.domloadLoginView();
+  }
+
+  domloadLoginView() {
+    window.addEventListener("load", () => {
+      this.getLoginForm();
+      this.handleChangeForm();
+      this.handleShowPassword();
+    });
   }
 
   handleChangeForm() {
+    const loginPage = document.querySelector(".login");
+    if (!loginPage) return;
     const loginBg = document.querySelector(".login-bg");
 
     // form login
@@ -29,12 +38,42 @@ class AuthView {
 
   getLoginForm(handler) {
     const loginForm = document.querySelector("#form-sign-in");
-    handleForm(loginForm, FORM.LOGIN, handler);
+    if (loginForm) {
+      handleFormLogin(loginForm, FORM.LOGIN, handler);
+    }
   }
 
   getRegisterForm(handler) {
     const regesterForm = document.querySelector("#form-sign-up");
-    handleForm(regesterForm, FORM.RESGITER, handler);
+    if (regesterForm) {
+      handleFormLogin(regesterForm, FORM.RESGITER, handler);
+    }
+  }
+
+  handleShowPassword() {
+    // sign in
+    const loginForm = document.querySelector("#form-sign-in");
+    const InputPasswordSignIn = document.querySelector("#password-signIn");
+    // sign up
+    const regesterForm = document.querySelector("#form-sign-up");
+    const InputPasswordSignUp = document.querySelector("#password-signUp");
+
+    if (loginForm || regesterForm) {
+      handleShow(loginForm, InputPasswordSignIn);
+      handleShow(regesterForm, InputPasswordSignUp);
+    }
+
+    function handleShow(formElm, InputPassword) {
+      const iconShow = formElm.querySelector(".show-password");
+      iconShow.addEventListener("click", (e) => {
+        const inputType = InputPassword.getAttribute("type");
+        if (inputType === "password") {
+          InputPassword.setAttribute("type", "text");
+        } else {
+          InputPassword.setAttribute("type", "password");
+        }
+      });
+    }
   }
 }
 

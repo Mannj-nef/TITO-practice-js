@@ -2,6 +2,7 @@ import axios from "axios";
 
 class AuthModel {
   constructor() {
+    this.user = {};
     this.endpoint = `${process.env.BASE_URL}/users`;
   }
 
@@ -26,7 +27,6 @@ class AuthModel {
   }
 
   async fildEmailUser({ email }) {
-    console.log(email);
     const condition = (user) => email === user.email;
     const user = this.findUser(condition);
     return user;
