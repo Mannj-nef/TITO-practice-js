@@ -1,5 +1,6 @@
 import MESSAGE from "../constants/message";
-import { KEY } from "../constants/type";
+import { KEY, PAGE } from "../constants/type";
+import { getLocalStorage, setLocalStorage } from "../helper/handlelocalStorage";
 import TOAST from "../helper/handleToast";
 
 class AuthController {
@@ -33,43 +34,51 @@ class AuthController {
     const AppView = this.appView;
     try {
       const hasUser = await Auth.fildEmailUser(data);
-      console.log(hasUser);
       if (hasUser.length > 0) {
         AppView.createToast(TOAST.ERROR(MESSAGE.ACCOUNT_EXISTS));
       } else {
-        // const user = await Auth.registerUser(data);
-        // if (user) {
-        //   this.handleLoginSuccess(user);
-        // }
+        const user = await Auth.registerUser(data);
+        if (user) {
+          this.handleLoginSuccess(user);
+        }
       }
     } catch (error) {
-      console.log(error);
+      AppView.createToast(TOAST.ERROR(error));
     }
   };
 
   handleLoginSuccess(user) {
     const AppView = this.appView;
+    const index = user.email.indexOf("@");
 
     delete user.password;
-    const userJson = JSON.stringify(user);
+    setLocalStorage(KEY.LOCALSTORAGE_UESR, user);
 
+    const userName = user.email.slice(0, index);
     AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGIN_SUCCESS));
-    localStorage.setItem(KEY.LOCALSTORAGE_UESR, userJson);
 
-    AppView.showTodoPage();
+    AppView.showPage("login", PAGE.TODO);
+    window.location.search = userName;
   }
 
   handleCheckLogin = async () => {
-    const Auth = this.model;
-    const AppView = this.appView;
+    try {
+      const Auth = this.model;
+      const AppView = this.appView;
 
-    const userJson = JSON.parse(localStorage.getItem(KEY.LOCALSTORAGE_UESR));
+      const userJson = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
-    if (!userJson) return;
-    const user = await Auth.fildEmailUser(userJson);
+      if (!userJson) {
+        AppView.createLogin();
+        return;
+      }
 
-    if (user) {
-      AppView.createTodoPage();
+      const user = await Auth.fildEmailUser(userJson);
+      if (user) {
+        AppView.createTodoPage();
+      }
+    } catch (error) {
+      AppView.createToast(TOAST.ERROR(error));
     }
   };
 }

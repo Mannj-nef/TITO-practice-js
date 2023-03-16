@@ -27,7 +27,7 @@ function SignIn() {
           />
           <p class="input-error">Please enter at least 6 characters</p>
           <div class="show-password">
-            <img src="src/assets/iconEye.svg" alt=""></img>
+              <i class="ti-eye"></i>
           </div>
         </div>
       </div>
