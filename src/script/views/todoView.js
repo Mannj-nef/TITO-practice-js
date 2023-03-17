@@ -10,15 +10,6 @@ import TodoItem from "./modules/todoList/TodoItem";
 class TodoView {
   constructor() {}
 
-  domLoadTodoView(handle) {
-    window.addEventListener("load", () => {
-      const todoPage = document.querySelector(".todo-page");
-      if (todoPage && typeof handle === "function") {
-        handle();
-      }
-    });
-  }
-
   getValueInput(handle) {
     const form = document.querySelector(".main-form");
     if (form) {

@@ -13,7 +13,7 @@ class TodoController {
     this.view = view;
     this.appView = appView;
 
-    this.view.domLoadTodoView(this.handleRenderTodo);
+    this.handleRenderTodo;
   }
 
   handleRenderTodo = async () => {
@@ -53,7 +53,6 @@ class TodoController {
     const TodoView = this.view;
     const user = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
-    console.log({ userName, user });
     if (userName || user) {
       try {
         await TodoModel.getTodoByEmail(user.email);

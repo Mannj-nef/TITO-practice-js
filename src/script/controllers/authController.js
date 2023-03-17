@@ -4,10 +4,11 @@ import { getLocalStorage, setLocalStorage } from "../helper/handlelocalStorage";
 import TOAST from "../helper/handleToast";
 
 class AuthController {
-  constructor(model, view, appView) {
+  constructor(model, view, appView, todoControll) {
     this.model = model;
     this.view = view;
     this.appView = appView;
+    this.todoControll = todoControll;
 
     this.handleCheckLogin();
     this.view.getLoginForm(this.handleLogin);
@@ -49,22 +50,24 @@ class AuthController {
 
   handleLoginSuccess(user) {
     const AppView = this.appView;
-    const index = user.email.indexOf("@");
+    const todoControll = this.todoControll;
 
     delete user.password;
     setLocalStorage(KEY.LOCALSTORAGE_UESR, user);
-
-    const userName = user.email.slice(0, index);
     AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGIN_SUCCESS));
 
     AppView.showPage("login", PAGE.TODO);
-    window.location.search = userName;
+    const todoPage = document.querySelector(".todo-page");
+    if (todoPage) {
+      todoControll.handleRenderTodo();
+    }
   }
 
   handleCheckLogin = async () => {
     try {
       const Auth = this.model;
       const AppView = this.appView;
+      const todoControll = this.todoControll;
 
       const userJson = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
@@ -76,6 +79,8 @@ class AuthController {
       const user = await Auth.fildEmailUser(userJson);
       if (user) {
         AppView.createTodoPage();
+
+        todoControll.handleRenderTodo();
       }
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
