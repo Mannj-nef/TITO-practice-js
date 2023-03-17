@@ -41,13 +41,11 @@ class AppView {
       curentPage.classList.add("todo-hidden");
     }
 
-    setTimeout(() => {
-      if (newPage === PAGE.TODO) {
-        this.createTodoPage();
-      } else if (newPage === PAGE.LOGIN) {
-        this.createLogin();
-      }
-    }, 600);
+    if (newPage === PAGE.TODO) {
+      this.createTodoPage();
+    } else if (newPage === PAGE.LOGIN) {
+      this.createLogin();
+    }
   }
 }
 

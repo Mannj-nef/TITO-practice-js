@@ -13,7 +13,7 @@ class TodoController {
     this.view = view;
     this.appView = appView;
 
-    this.view.domLoadTodoView(this.handleRenderTodo);
+    this.handleRenderTodo;
   }
 
   handleRenderTodo = async () => {
@@ -21,6 +21,7 @@ class TodoController {
     TodoView.logOutView(this.handleLogout);
 
     await this.handleGetTodos();
+
     TodoView.getValueUpdateTodoView();
     TodoView.getValueInput(this.handlesubmit);
     TodoView.getIdDeleteTodo(this.handleRemoveTodo);
