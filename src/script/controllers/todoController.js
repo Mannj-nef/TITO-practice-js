@@ -21,6 +21,7 @@ class TodoController {
     TodoView.logOutView(this.handleLogout);
 
     await this.handleGetTodos();
+
     TodoView.getValueUpdateTodoView();
     TodoView.getValueInput(this.handlesubmit);
     TodoView.getIdDeleteTodo(this.handleRemoveTodo);
@@ -52,6 +53,7 @@ class TodoController {
     const TodoView = this.view;
     const user = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
+    console.log({ userName, user });
     if (userName || user) {
       try {
         await TodoModel.getTodoByEmail(user.email);
