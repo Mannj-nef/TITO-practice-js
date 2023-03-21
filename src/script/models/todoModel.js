@@ -27,7 +27,8 @@ class TodoModel {
 
   async addTodo(todo) {
     const endpointUrl = this.endpoint;
-    await axios.post(endpointUrl, todo);
+    const { data } = await axios.post(endpointUrl, todo);
+    return data;
   }
 
   async updateTodo(id, todoData) {

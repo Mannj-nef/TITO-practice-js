@@ -4,6 +4,7 @@ import SignUp from "./modules/signUp/SignUp.js";
 import Toast from "./components/toast";
 import TodoPage from "./pages/TodoPage";
 import { PAGE } from "../constants/type";
+import debounce from "../helper/debounce";
 
 class AppView {
   constructor() {
@@ -25,7 +26,7 @@ class AppView {
     const toast = document.getElementById("toast");
     toast.innerHTML = data;
 
-    setTimeout(() => {
+    debounce(() => {
       toast.innerHTML = "";
     }, 4000);
   }

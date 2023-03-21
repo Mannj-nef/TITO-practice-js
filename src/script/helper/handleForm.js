@@ -1,6 +1,7 @@
 import ERROR_VALIDATE from "../constants/errorMessage";
-import { ACTION_FORM, FORM } from "../constants/type";
+import { FORM } from "../constants/type";
 import VALIDATE from "../constants/validateSchema";
+import debounce from "./debounce";
 
 export const handleFormLogin = (formElm, type = FORM.LOGIN, handler) => {
   validate(formElm);
@@ -27,18 +28,19 @@ export const handleFormLogin = (formElm, type = FORM.LOGIN, handler) => {
       const button = formElm.querySelector(".submit-form");
       button.classList.add("button-loading");
 
-      const timeOut = setTimeout(() => {
+      const submitForm = () => {
         button.classList.remove("button-loading");
 
         if (typeof handler === "function") {
           handler(valueItem);
         }
-      }, 2500);
+      };
+      debounce(submitForm, 2000);
     }
   });
 };
 
-export const handleFormTodo = (formElm, handle) => {
+export const handleFormTodo = (formElm, disableElm, handle) => {
   formElm.addEventListener("submit", function (e) {
     e.preventDefault();
     const actionElm = formElm.querySelector(".action-todo");
@@ -54,14 +56,17 @@ export const handleFormTodo = (formElm, handle) => {
 
     const button = formElm.querySelector(".main-btn");
     button.classList.add("button-loading");
-
-    const timeOut = setTimeout(() => {
+    const handleSubmit = () => {
       button.classList.remove("button-loading");
       if (typeof handle === "function") {
         handle(inputValue, action);
         input.value = "";
       }
-    }, 500);
+    };
+
+    disableElm();
+
+    debounce(handleSubmit, 800);
   });
 };
 
