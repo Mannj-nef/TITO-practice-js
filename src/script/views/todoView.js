@@ -1,4 +1,5 @@
 import { ACTION_FORM, KEY } from "../constants/type";
+import debounce from "../helper/debounce";
 import { handleFormTodo } from "../helper/handleForm";
 import {
   clearLocalStorage,
@@ -10,19 +11,10 @@ import TodoItem from "./modules/todoList/TodoItem";
 class TodoView {
   constructor() {}
 
-  domLoadTodoView(handle) {
-    window.addEventListener("load", () => {
-      const todoPage = document.querySelector(".todo-page");
-      if (todoPage && typeof handle === "function") {
-        handle();
-      }
-    });
-  }
-
   getValueInput(handle) {
     const form = document.querySelector(".main-form");
     if (form) {
-      handleFormTodo(form, handle);
+      handleFormTodo(form, this.disableTodoView, handle);
     }
   }
 
@@ -34,14 +26,17 @@ class TodoView {
     }
   }
 
-  confirmDelete(id, btnTodoConfirm, todoItem, todoItemParent, handle) {
+  confirmDelete(id, btnTodoConfirm, handle) {
     const btnRemove = document.querySelector(".btn-confirm-remove");
     const btnCancel = document.querySelector(".btn-confirm-remove-cancel");
 
     btnRemove.addEventListener("click", (e) => {
       e.stopPropagation();
       if (typeof handle === "function") {
-        handle(id);
+        debounce(() => {
+          this.disableTodoView();
+          handle(id);
+        }, 500);
         RemoveConfirm();
       }
     });
@@ -87,7 +82,7 @@ class TodoView {
         const todoConfirm = document.querySelector(".todo-confirm-delete");
 
         if (!id) return;
-        this.confirmDelete(id, todoConfirm, todoItem, todoItemParent, handle);
+        this.confirmDelete(id, todoConfirm, handle);
       });
     });
   }
@@ -101,12 +96,17 @@ class TodoView {
         const classChecked = "checkbox-input-checked";
 
         const checkBoxElm = target.querySelector(".checkbox-input");
-        checkBoxElm.classList.toggle(classChecked);
-        const status = checkBoxElm.classList.contains(classChecked);
 
-        if (typeof handle === "function") {
-          handle(id, status);
-        }
+        this.disableTodoView();
+
+        debounce(() => {
+          if (typeof handle === "function") {
+            checkBoxElm.classList.toggle(classChecked);
+            const status = checkBoxElm.classList.contains(classChecked);
+
+            handle(id, status);
+          }
+        }, 500);
       });
     });
   }
@@ -176,6 +176,25 @@ class TodoView {
 
       if (typeof handle === "function") {
         handle();
+      }
+    });
+  }
+
+  disableTodoView(clearDisable = false) {
+    const todoElm = document.querySelectorAll(".todo-item");
+    const inputMain = document.querySelector(".main-input");
+
+    [...todoElm].forEach((todo) => {
+      if (!clearDisable) {
+        todo.classList.add("disable");
+        inputMain.classList.add("disable");
+        todo.style.pointerEvents = "none";
+        inputMain.style.pointerEvents = "none";
+      } else {
+        todo.classList.remove("disable");
+        inputMain.classList.remove("disable");
+        todo.style = "";
+        inputMain.style.pointerEvents = "";
       }
     });
   }

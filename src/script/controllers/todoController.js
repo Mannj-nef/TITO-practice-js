@@ -13,7 +13,7 @@ class TodoController {
     this.view = view;
     this.appView = appView;
 
-    this.view.domLoadTodoView(this.handleRenderTodo);
+    this.handleRenderTodo;
   }
 
   handleRenderTodo = async () => {
@@ -53,7 +53,6 @@ class TodoController {
     const TodoView = this.view;
     const user = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
-    console.log({ userName, user });
     if (userName || user) {
       try {
         await TodoModel.getTodoByEmail(user.email);
@@ -89,17 +88,20 @@ class TodoController {
       };
 
       if (todoItem) {
-        TodoModel.todos.push(todoItem);
+        this.view.disableTodoView("add");
+        const data = await TodoModel.addTodo(todoItem);
 
-        await TodoModel.addTodo(todoItem);
-        TodoView.displayTodos(TodoModel.todos);
-        AppView.createToast(TOAST.SUCCESS(MESSAGE.ADD_TODO_SUCCESS));
-
-        // get id of new todo when just  add
-        this.renderNewTodoWhenChange();
+        if (data) {
+          TodoModel.todos.push(todoItem);
+          AppView.createToast(TOAST.SUCCESS(MESSAGE.ADD_TODO_SUCCESS));
+          TodoView.displayTodos(TodoModel.todos);
+          // get id of new todo when just  add
+          this.renderNewTodoWhenChange();
+        }
       }
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
+      TodoView.displayTodos(TodoModel.todos);
     }
   };
 
@@ -127,17 +129,26 @@ class TodoController {
       }
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
+      TodoView.displayTodos(TodoModel.todos);
     }
   };
 
   handleActiveWhenDone = async (id, status) => {
     const TodoModel = this.model;
+    const TodoView = this.view;
     const AppView = this.appView;
+
+    const clearDisable = true;
 
     try {
       const data = await TodoModel.updateTodo(id, { complete: status });
+
+      if (data) {
+        TodoView.disableTodoView(clearDisable);
+      }
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
+      TodoView.disableTodoView(clearDisable);
     }
   };
 
@@ -146,27 +157,38 @@ class TodoController {
     const AppView = this.appView;
     const TodoView = this.view;
 
+    const clearDisable = true;
+
     try {
       if (id) {
         const numberId = id;
         await TodoModel.removeTodo(numberId);
 
         const newTodo = TodoModel.todos.filter((todo) => todo.id !== id);
-        TodoModel.todos = newTodo;
 
-        const idTodoLocalStorege = getLocalStorage(KEY.LOCALSTORAGE_ID_UPDATE);
+        if (newTodo) {
+          TodoModel.todos = newTodo;
 
-        if (id === idTodoLocalStorege) {
-          TodoView.resetFormTodoView();
+          const idTodoLocalStorege = getLocalStorage(
+            KEY.LOCALSTORAGE_ID_UPDATE
+          );
+
+          if (id === idTodoLocalStorege) {
+            TodoView.resetFormTodoView();
+          }
+
+          TodoView.displayTodos(TodoModel.todos);
+          TodoView.disableTodoView(clearDisable);
+
+          this.renderNewTodoWhenChange();
+
+          AppView.createToast(TOAST.SUCCESS(MESSAGE.DELETE_TODO_SUCCESS));
         }
-
-        TodoView.displayTodos(TodoModel.todos);
-        this.renderNewTodoWhenChange();
-
-        AppView.createToast(TOAST.SUCCESS(MESSAGE.DELETE_TODO_SUCCESS));
       }
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
+      TodoView.displayTodos(TodoModel.todos);
+      TodoView.disableTodoView(clearDisable);
     }
   };
 

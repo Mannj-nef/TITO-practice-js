@@ -8,7 +8,6 @@ class AuthView {
 
   domloadLoginView() {
     window.addEventListener("load", () => {
-      this.getLoginForm();
       this.handleChangeForm();
       this.handleShowPassword();
     });
