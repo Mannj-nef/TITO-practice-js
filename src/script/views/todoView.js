@@ -106,7 +106,7 @@ class TodoView {
 
             handle(id, status);
           }
-        });
+        }, 500);
       });
     });
   }
