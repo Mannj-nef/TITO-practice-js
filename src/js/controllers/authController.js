@@ -4,11 +4,21 @@ import { getLocalStorage, setLocalStorage } from "../helper/handlelocalStorage";
 import TOAST from "../helper/handleToast";
 
 class AuthController {
-  constructor(model, view, appView, todoControll) {
-    this.model = model;
-    this.view = view;
-    this.appView = appView;
-    this.todoControll = todoControll;
+  constructor({
+    AuthModel,
+    AuthView,
+    AppView,
+    TodoController,
+    TodoModel,
+    TodoView,
+  }) {
+    this.model = AuthModel;
+    this.view = AuthView;
+    this.appView = AppView;
+
+    this.todoControll = TodoController;
+    this.todoModel = TodoModel;
+    this.todoView = TodoView;
 
     this.handleCheckLogin();
     this.view.getLoginForm(this.handleLogin);
@@ -50,7 +60,8 @@ class AuthController {
 
   handleLoginSuccess(user) {
     const AppView = this.appView;
-    const todoControll = this.todoControll;
+    const todoModel = this.todoModel;
+    const todoView = this.todoView;
 
     delete user.password;
     setLocalStorage(KEY.LOCALSTORAGE_UESR, user);
@@ -59,6 +70,12 @@ class AuthController {
     AppView.showPage("login", PAGE.TODO);
     const todoPage = document.querySelector(".todo-page");
     if (todoPage) {
+      const todoControll = new this.todoControll(
+        new todoModel(),
+        todoView,
+        AppView
+      );
+
       todoControll.handleRenderTodo();
     }
   }
@@ -67,7 +84,8 @@ class AuthController {
     try {
       const Auth = this.model;
       const AppView = this.appView;
-      const todoControll = this.todoControll;
+      const todoModel = this.todoModel;
+      const todoView = this.todoView;
 
       const userJson = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
@@ -79,6 +97,11 @@ class AuthController {
       const user = await Auth.fildEmailUser(userJson);
       if (user) {
         AppView.createTodoPage();
+        const todoControll = new this.todoControll(
+          new todoModel(),
+          todoView,
+          AppView
+        );
 
         todoControll.handleRenderTodo();
       }

@@ -4,6 +4,7 @@ class TodoModel {
   constructor() {
     this.todos = [];
     this.endpoint = `${process.env.BASE_URL}/todoList`;
+    console.log("todo model");
   }
   async getAlltodo() {
     const endpointUrl = this.endpoint;
@@ -43,4 +44,4 @@ class TodoModel {
   }
 }
 
-export default new TodoModel();
+export default TodoModel;
