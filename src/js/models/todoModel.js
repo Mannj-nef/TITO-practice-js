@@ -4,8 +4,8 @@ class TodoModel {
   constructor() {
     this.todos = [];
     this.endpoint = `${process.env.BASE_URL}/todoList`;
-    console.log("todo model");
   }
+
   async getAlltodo() {
     const endpointUrl = this.endpoint;
     const { data } = await axios.get(endpointUrl);

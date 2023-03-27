@@ -20,8 +20,7 @@ class AuthModel {
   }
 
   async findLoginUser({ email, password }) {
-    const condition = (user) =>
-      user.email === email && user.password === password;
+    const condition = (user) => user.email === email && user.password === password;
     const user = this.findUser(condition);
     return user;
   }

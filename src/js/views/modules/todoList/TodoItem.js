@@ -11,8 +11,8 @@ function TodoItem({
                 name="checkbox-todo"
                 id="checkbox"
                 class="checkbox-input ${
-                  complete ? "checkbox-input-checked" : ""
-                }"
+  complete ? "checkbox-input-checked" : ""
+}"
             />
             <div class="checkbox-box">
                 <svg
