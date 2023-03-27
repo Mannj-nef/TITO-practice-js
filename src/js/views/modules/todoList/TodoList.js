@@ -1,5 +1,4 @@
 import TodoForm from "./TodoForm";
-import TodoItem from "./TodoItem";
 
 function TodoList() {
   return `

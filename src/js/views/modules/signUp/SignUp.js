@@ -44,10 +44,10 @@ function SignUp() {
       </div>
       <button class="btn submit-form">
         <div class="loading d-none"></div>
-        <span class="">Sign up</span>
+        <span class="">Sign Up</span>
       </button>
       <p class="confirm-is-account">
-        Don't have an account? <span class="login-link"> Sign up</span>
+        Don't have an account? <span class="login-link"> Sign In</span>
       </p>
     </form>
   </div>

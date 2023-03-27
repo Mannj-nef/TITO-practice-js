@@ -3,7 +3,7 @@ import { FORM } from "../constants/type";
 import VALIDATE from "../constants/validateSchema";
 import debounce from "./debounce";
 
-export const handleFormLogin = (formElm, type = FORM.LOGIN, handler) => {
+export const handleFormLogin = (formElm, handler, type = FORM.LOGIN) => {
   validate(formElm);
 
   formElm.addEventListener("submit", function (e) {
@@ -11,8 +11,8 @@ export const handleFormLogin = (formElm, type = FORM.LOGIN, handler) => {
     e.preventDefault();
 
     const valueItem = {
-      email: this.elements["email"].value.trim().toLowerCase(),
-      password: this.elements["password"].value.trim(),
+      email: this.elements.email.value.trim().toLowerCase(),
+      password: this.elements.password.value.trim(),
     };
 
     if (type === FORM.RESGITER) {
@@ -47,7 +47,7 @@ export const handleFormTodo = (formElm, disableElm, handle) => {
     const input = this.elements["input-todo"];
 
     const action = actionElm.textContent;
-    let inputValue = input.value.trim();
+    const inputValue = input.value.trim();
 
     if (inputValue <= 0) {
       input.value = "";
@@ -86,8 +86,8 @@ function validate(formElm) {
     );
   });
 
-  function handleInput(e, paramenter, inputControls) {
-    const inputPassword = inputControls[1];
+  function handleInput(e, paramenter, inputs) {
+    const inputPassword = inputs[1];
     const inputTarget = e.target;
     const textErrorElm = inputTarget.nextElementSibling;
     const valueInput = inputTarget.value;
@@ -128,20 +128,23 @@ function validate(formElm) {
     const textErrorElm = inputTarget.nextElementSibling;
 
     switch (inputName) {
-      case "email":
+      case "email": {
         const validateEmail = regexEmail.test(value);
         handleValid(validateEmail, inputTarget, "invalid");
         break;
-      case "password" || "text":
+      }
+      case "password" || "text": {
         const validatePassword = value.length >= VALIDATE.PASS_MIN;
         handleValid(validatePassword, inputTarget, "invalid");
         break;
-      case "confirm-password":
+      }
+      case "confirm-password": {
         const passwordValue = inputPassword.value;
         const validateConfirmPassword = value === passwordValue;
         handleValid(validateConfirmPassword, inputTarget, "invalid");
         textErrorElm.textContent = ERROR_VALIDATE.PASS_NOT_MATCH;
         break;
+      }
 
       default:
         break;

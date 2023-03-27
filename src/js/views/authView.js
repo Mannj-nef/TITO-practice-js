@@ -13,7 +13,7 @@ class AuthView {
     });
   }
 
-  handleChangeForm() {
+  handleChangeForm = () => {
     const loginPage = document.querySelector(".login");
     if (!loginPage) return;
     const loginBg = document.querySelector(".login-bg");
@@ -33,23 +33,23 @@ class AuthView {
     loginElm.addEventListener("click", () => {
       loginBg.classList.add("login-bg-right");
     });
-  }
+  };
 
-  getLoginForm(handler) {
+  getLoginForm = (handler) => {
     const loginForm = document.querySelector("#form-sign-in");
     if (loginForm) {
-      handleFormLogin(loginForm, FORM.LOGIN, handler);
+      handleFormLogin(loginForm, handler, FORM.LOGIN);
     }
-  }
+  };
 
-  getRegisterForm(handler) {
+  getRegisterForm = (handler) => {
     const regesterForm = document.querySelector("#form-sign-up");
     if (regesterForm) {
-      handleFormLogin(regesterForm, FORM.RESGITER, handler);
+      handleFormLogin(regesterForm, handler, FORM.RESGITER);
     }
-  }
+  };
 
-  handleShowPassword() {
+  handleShowPassword = () => {
     // sign in
     const loginForm = document.querySelector("#form-sign-in");
     const InputPasswordSignIn = document.querySelector("#password-signIn");
@@ -64,7 +64,7 @@ class AuthView {
 
     function handleShow(formElm, InputPassword) {
       const iconShow = formElm.querySelector(".show-password");
-      iconShow.addEventListener("click", (e) => {
+      iconShow.addEventListener("click", () => {
         const inputType = InputPassword.getAttribute("type");
         if (inputType === "password") {
           InputPassword.setAttribute("type", "text");
@@ -73,7 +73,7 @@ class AuthView {
         }
       });
     }
-  }
+  };
 }
 
 export default new AuthView();
