@@ -24,6 +24,7 @@ class AuthController {
     this.view.getLoginForm(this.handleLogin);
     this.view.getRegisterForm(this.handleRegister);
   }
+
   handleLogin = async (data) => {
     const Auth = this.model;
     const AppView = this.appView;
@@ -60,8 +61,9 @@ class AuthController {
 
   handleLoginSuccess(user) {
     const AppView = this.appView;
-    const todoModel = this.todoModel;
-    const todoView = this.todoView;
+    const TodoModel = this.todoModel;
+    const TodoView = this.todoView;
+    const TodoController = this.todoControll;
 
     delete user.password;
     setLocalStorage(KEY.LOCALSTORAGE_UESR, user);
@@ -70,9 +72,9 @@ class AuthController {
     AppView.showPage("login", PAGE.TODO);
     const todoPage = document.querySelector(".todo-page");
     if (todoPage) {
-      const todoControll = new this.todoControll(
-        new todoModel(),
-        todoView,
+      const todoControll = new TodoController(
+        new TodoModel(),
+        TodoView,
         AppView
       );
 
@@ -81,12 +83,13 @@ class AuthController {
   }
 
   handleCheckLogin = async () => {
-    try {
-      const Auth = this.model;
-      const AppView = this.appView;
-      const todoModel = this.todoModel;
-      const todoView = this.todoView;
+    const Auth = this.model;
+    const AppView = this.appView;
+    const TodoModel = this.todoModel;
+    const TodoView = this.todoView;
+    const TodoController = this.todoControll;
 
+    try {
       const userJson = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
       if (!userJson) {
@@ -97,9 +100,9 @@ class AuthController {
       const user = await Auth.fildEmailUser(userJson);
       if (user) {
         AppView.createTodoPage();
-        const todoControll = new this.todoControll(
-          new todoModel(),
-          todoView,
+        const todoControll = new TodoController(
+          new TodoModel(),
+          TodoView,
           AppView
         );
 
