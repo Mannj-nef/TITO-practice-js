@@ -15,5 +15,7 @@ const param = {
   TodoView,
 };
 
+// eslint-disable-next-line no-unused-vars
 const app = AppView;
+// eslint-disable-next-line no-unused-vars
 const auth = new AuthController(param);
