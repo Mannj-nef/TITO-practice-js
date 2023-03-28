@@ -1,5 +1,14 @@
 import axios from "axios";
 
+class TodoSchema {
+  constructor({ id, email, title, complete }) {
+    this.id = id;
+    this.email = email;
+    this.title = title;
+    this.complete = complete;
+  }
+}
+
 class TodoModel {
   constructor() {
     this.todos = [];
@@ -11,9 +20,7 @@ class TodoModel {
     const { data } = await axios.get(endpointUrl);
 
     if (data) {
-      data.forEach((item) => {
-        this.todos.push(...item.todos);
-      });
+      this.todos = data.map((todo) => new TodoSchema(todo));
     }
   }
 
@@ -22,13 +29,18 @@ class TodoModel {
     const { data } = await axios.get(endpointUrl);
 
     if (data) {
-      this.todos.push(...data);
+      this.todos = data.map((todo) => new TodoSchema(todo));
     }
   }
 
   async addTodo(todo) {
     const endpointUrl = this.endpoint;
     const { data } = await axios.post(endpointUrl, todo);
+
+    if (data) {
+      this.todos.push(data);
+    }
+
     return data;
   }
 
@@ -41,6 +53,7 @@ class TodoModel {
   async removeTodo(id) {
     const endpointUrl = `${this.endpoint}/${id}`;
     await axios.delete(endpointUrl);
+    this.todos = this.todos.filter((todo) => todo.id !== id);
   }
 }
 

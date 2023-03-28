@@ -26,5 +26,6 @@ module.exports = {
       { target: "single" || "any" },
     ],
     "func-names": ["error", "never"],
+    "max-classes-per-file": ["error", { ignoreExpressions: true, max: 2 }],
   },
 };

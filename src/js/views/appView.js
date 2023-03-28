@@ -31,12 +31,6 @@ class AppView {
     if (!curentPage) return;
 
     if (newPage === PAGE.TODO) {
-      curentPage.classList.add("login-hidden");
-    } else if (newPage === PAGE.LOGIN) {
-      curentPage.classList.add("todo-hidden");
-    }
-
-    if (newPage === PAGE.TODO) {
       this.createTodoPage();
     } else if (newPage === PAGE.LOGIN) {
       this.createLogin();

@@ -87,22 +87,26 @@ class TodoView {
     const todos = document.querySelectorAll(".todo-item");
     [...todos].forEach((todo) => {
       todo.addEventListener("click", (e) => {
+        e.stopPropagation();
+
         const { target } = e;
         const id = target.dataset.id_todo;
         const classChecked = "checkbox-input-checked";
 
         const checkBoxElm = target.querySelector(".checkbox-input");
 
-        this.disableTodoView();
+        if (checkBoxElm) {
+          this.disableTodoView();
 
-        debounce(() => {
-          if (typeof handle === "function") {
-            checkBoxElm.classList.toggle(classChecked);
-            const status = checkBoxElm.classList.contains(classChecked);
+          debounce(() => {
+            if (typeof handle === "function") {
+              checkBoxElm.classList.toggle(classChecked);
+              const status = checkBoxElm.classList.contains(classChecked);
 
-            handle(id, status);
-          }
-        }, 500);
+              handle(id, status);
+            }
+          }, 500);
+        }
       });
     });
   }
