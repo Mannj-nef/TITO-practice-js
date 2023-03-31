@@ -4,16 +4,27 @@ import { getLocalStorage, setLocalStorage } from "../helper/handlelocalStorage";
 import TOAST from "../helper/handleToast";
 
 class AuthController {
-  constructor(model, view, appView, todoControll) {
-    this.model = model;
-    this.view = view;
-    this.appView = appView;
-    this.todoControll = todoControll;
+  constructor({
+    AuthModel,
+    AuthView,
+    AppView,
+    TodoController,
+    TodoModel,
+    TodoView,
+  }) {
+    this.model = AuthModel;
+    this.view = AuthView;
+    this.appView = AppView;
+
+    this.todoControll = TodoController;
+    this.todoModel = TodoModel;
+    this.todoView = TodoView;
 
     this.handleCheckLogin();
     this.view.getLoginForm(this.handleLogin);
     this.view.getRegisterForm(this.handleRegister);
   }
+
   handleLogin = async (data) => {
     const Auth = this.model;
     const AppView = this.appView;
@@ -50,7 +61,9 @@ class AuthController {
 
   handleLoginSuccess(user) {
     const AppView = this.appView;
-    const todoControll = this.todoControll;
+    const TodoModel = this.todoModel;
+    const TodoView = this.todoView;
+    const TodoController = this.todoControll;
 
     delete user.password;
     setLocalStorage(KEY.LOCALSTORAGE_UESR, user);
@@ -59,16 +72,24 @@ class AuthController {
     AppView.showPage("login", PAGE.TODO);
     const todoPage = document.querySelector(".todo-page");
     if (todoPage) {
+      const todoControll = new TodoController(
+        new TodoModel(),
+        TodoView,
+        AppView
+      );
+
       todoControll.handleRenderTodo();
     }
   }
 
   handleCheckLogin = async () => {
-    try {
-      const Auth = this.model;
-      const AppView = this.appView;
-      const todoControll = this.todoControll;
+    const Auth = this.model;
+    const AppView = this.appView;
+    const TodoModel = this.todoModel;
+    const TodoView = this.todoView;
+    const TodoController = this.todoControll;
 
+    try {
       const userJson = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
       if (!userJson) {
@@ -79,6 +100,11 @@ class AuthController {
       const user = await Auth.fildEmailUser(userJson);
       if (user) {
         AppView.createTodoPage();
+        const todoControll = new TodoController(
+          new TodoModel(),
+          TodoView,
+          AppView
+        );
 
         todoControll.handleRenderTodo();
       }

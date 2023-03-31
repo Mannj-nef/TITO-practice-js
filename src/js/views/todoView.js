@@ -9,8 +9,6 @@ import TodoConfirmDelete from "./modules/todoList/TodoConfirmDelete";
 import TodoItem from "./modules/todoList/TodoItem";
 
 class TodoView {
-  constructor() {}
-
   getValueInput(handle) {
     const form = document.querySelector(".main-form");
     if (form) {
@@ -18,13 +16,13 @@ class TodoView {
     }
   }
 
-  displayTodos(todos) {
+  displayTodos = (todos) => {
     const todoListElm = document.querySelector(".todo-list");
     if (todos.length > 0) {
       const todoList = todos.map((todoItem) => TodoItem(todoItem));
       todoListElm.innerHTML = todoList.reverse().join("");
     }
-  }
+  };
 
   confirmDelete(id, btnTodoConfirm, handle) {
     const btnRemove = document.querySelector(".btn-confirm-remove");
@@ -62,10 +60,8 @@ class TodoView {
       btnItem.addEventListener("click", (e) => {
         e.stopPropagation();
 
-        const target = e.target;
-        const id = target.dataset.id;
-        const todoItem = target.parentNode.parentNode;
-        const todoItemParent = todoItem.parentNode;
+        const { target } = e;
+        const { id } = target.dataset;
 
         const todoConfirmCurrent = document.querySelector(
           ".todo-confirm-delete"
@@ -91,27 +87,31 @@ class TodoView {
     const todos = document.querySelectorAll(".todo-item");
     [...todos].forEach((todo) => {
       todo.addEventListener("click", (e) => {
-        const target = e.target;
+        e.stopPropagation();
+
+        const { target } = e;
         const id = target.dataset.id_todo;
         const classChecked = "checkbox-input-checked";
 
         const checkBoxElm = target.querySelector(".checkbox-input");
 
-        this.disableTodoView();
+        if (checkBoxElm) {
+          this.disableTodoView();
 
-        debounce(() => {
-          if (typeof handle === "function") {
-            checkBoxElm.classList.toggle(classChecked);
-            const status = checkBoxElm.classList.contains(classChecked);
+          debounce(() => {
+            if (typeof handle === "function") {
+              checkBoxElm.classList.toggle(classChecked);
+              const status = checkBoxElm.classList.contains(classChecked);
 
-            handle(id, status);
-          }
-        }, 500);
+              handle(id, status);
+            }
+          }, 500);
+        }
       });
     });
   }
 
-  getValueUpdateTodoView() {
+  getValueUpdateTodoView = () => {
     const todoList = document.querySelector(".todo-list");
 
     if (!todoList) return;
@@ -119,8 +119,8 @@ class TodoView {
     [...todoItemBtnUpdate].forEach((btnUpdate) => {
       btnUpdate.addEventListener("click", (e) => {
         e.stopPropagation();
-        const target = e.target;
-        const id = target.dataset.id;
+        const { target } = e;
+        const { id } = target.dataset;
         const todoItem = target.parentNode.parentNode;
 
         if (!todoItem.classList.contains("todo-item")) return;
@@ -156,9 +156,9 @@ class TodoView {
         btnRemoveValue.classList.remove("main-update");
       });
     }
-  }
+  };
 
-  resetFormTodoView() {
+  resetFormTodoView = () => {
     const form = document.querySelector(".main-form");
     if (!form) return;
     const btnRemoveValue = form.querySelector(".btn-remove-form");
@@ -166,9 +166,9 @@ class TodoView {
 
     btnRemoveValue.classList.remove("main-update");
     actionTodo.textContent = ACTION_FORM.ADD;
-  }
+  };
 
-  logOutView(handle) {
+  logOutView = (handle) => {
     const btnLogout = document.querySelector(".header-logout");
 
     btnLogout.addEventListener("click", () => {
@@ -178,9 +178,9 @@ class TodoView {
         handle();
       }
     });
-  }
+  };
 
-  disableTodoView(clearDisable = false) {
+  disableTodoView = (clearDisable = false) => {
     const todoElm = document.querySelectorAll(".todo-item");
     const inputMain = document.querySelector(".main-input");
 
@@ -197,7 +197,7 @@ class TodoView {
         inputMain.style.pointerEvents = "";
       }
     });
-  }
+  };
 }
 
 export default new TodoView();

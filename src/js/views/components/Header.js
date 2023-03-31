@@ -26,14 +26,14 @@ function Header() {
     <h1 class="header-title">YNDER TODO</h1>
     <ul class="nav-list">
     ${links
-      .map(
-        (item) => `<li class="nav-item">
+    .map(
+      (item) => `<li class="nav-item">
         <a href=${item.href} class="nav-link">
           ${item.title}
         </a>
-      </li>`
-      )
-      .join("")}
+      </li>`,
+    )
+    .join("")}
       
     </ul>
     <div>

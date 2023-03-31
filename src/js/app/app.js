@@ -6,6 +6,16 @@ import AppView from "../views/appView";
 import AuthView from "../views/authView";
 import TodoView from "../views/todoView";
 
+const param = {
+  AuthModel,
+  AuthView,
+  AppView,
+  TodoController,
+  TodoModel,
+  TodoView,
+};
+
+// eslint-disable-next-line no-unused-vars
 const app = AppView;
-const todo = new TodoController(TodoModel, TodoView, AppView);
-const auth = new AuthController(AuthModel, AuthView, AppView, todo);
+// eslint-disable-next-line no-unused-vars
+const auth = new AuthController(param);
