@@ -5,19 +5,19 @@ import TOAST from "../helper/handleToast";
 
 class AuthController {
   constructor({
-    AuthModel,
+    AuthService,
     AuthView,
     AppView,
     TodoController,
-    TodoModel,
+    TodoService,
     TodoView,
   }) {
-    this.model = AuthModel;
+    this.service = AuthService;
     this.view = AuthView;
     this.appView = AppView;
 
     this.todoControll = TodoController;
-    this.todoModel = TodoModel;
+    this.todoService = TodoService;
     this.todoView = TodoView;
 
     this.handleCheckLogin();
@@ -26,7 +26,7 @@ class AuthController {
   }
 
   handleLogin = async (data) => {
-    const Auth = this.model;
+    const Auth = this.service;
     const AppView = this.appView;
 
     try {
@@ -42,7 +42,7 @@ class AuthController {
   };
 
   handleRegister = async (data) => {
-    const Auth = this.model;
+    const Auth = this.service;
     const AppView = this.appView;
     try {
       const hasUser = await Auth.fildEmailUser(data);
@@ -61,7 +61,7 @@ class AuthController {
 
   handleLoginSuccess(user) {
     const AppView = this.appView;
-    const TodoModel = this.todoModel;
+    const TodoService = this.todoService;
     const TodoView = this.todoView;
     const TodoController = this.todoControll;
 
@@ -73,7 +73,7 @@ class AuthController {
     const todoPage = document.querySelector(".todo-page");
     if (todoPage) {
       const todoControll = new TodoController(
-        new TodoModel(),
+        new TodoService(),
         TodoView,
         AppView
       );
@@ -83,9 +83,9 @@ class AuthController {
   }
 
   handleCheckLogin = async () => {
-    const Auth = this.model;
+    const Auth = this.service;
     const AppView = this.appView;
-    const TodoModel = this.todoModel;
+    const TodoService = this.todoService;
     const TodoView = this.todoView;
     const TodoController = this.todoControll;
 
@@ -101,7 +101,7 @@ class AuthController {
       if (user) {
         AppView.createTodoPage();
         const todoControll = new TodoController(
-          new TodoModel(),
+          new TodoService(),
           TodoView,
           AppView
         );

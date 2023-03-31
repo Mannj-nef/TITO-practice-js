@@ -1,17 +1,17 @@
 import AuthController from "../controllers/authController";
 import TodoController from "../controllers/todoController";
-import AuthModel from "../models/authModel";
-import TodoModel from "../models/todoModel";
+import AuthService from "../services/auth.service";
+import TodoService from "../services/todo.service";
 import AppView from "../views/appView";
 import AuthView from "../views/authView";
 import TodoView from "../views/todoView";
 
 const param = {
-  AuthModel,
+  AuthService,
   AuthView,
   AppView,
   TodoController,
-  TodoModel,
+  TodoService,
   TodoView,
 };
 
