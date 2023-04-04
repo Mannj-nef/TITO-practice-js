@@ -34,7 +34,7 @@ class TodoController {
     TodoView.activeTodoWhenDone(this.handleActiveWhenDone);
   }
 
-  handleGetTodoAllTodos = async () => {
+  handleGetTodoAllTodo = async () => {
     const TodoService = this.service;
     const AppView = this.appView;
 
@@ -49,12 +49,10 @@ class TodoController {
     const TodoService = this.service;
     const AppView = this.appView;
 
-    const index = window.location.search.indexOf("?");
-    const userName = window.location.search.slice(index + 1);
     const TodoView = this.view;
     const user = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
-    if (userName || user) {
+    if (user) {
       try {
         await TodoService.getTodoByEmail(user.email);
         TodoView.displayTodos(TodoService.todos);
@@ -77,8 +75,7 @@ class TodoController {
     const TodoView = this.view;
     const AppView = this.appView;
 
-    const user = getLocalStorage(KEY.LOCALSTORAGE_UESR);
-    const { email } = user;
+    const { user: email } = getLocalStorage(KEY.LOCALSTORAGE_UESR);
 
     try {
       const todoItem = {
@@ -88,16 +85,14 @@ class TodoController {
         complete: false,
       };
 
-      if (todoItem) {
-        this.view.disableTodoView("add");
-        const data = await TodoService.addTodo(todoItem);
+      this.view.disableTodoView("add");
+      const data = await TodoService.addTodo(todoItem);
 
-        if (data) {
-          AppView.createToast(TOAST.SUCCESS(MESSAGE.ADD_TODO_SUCCESS));
-          TodoView.displayTodos(TodoService.todos);
-          // get id of new todo when just  add
-          this.renderNewTodoWhenChange();
-        }
+      if (data) {
+        AppView.createToast(TOAST.SUCCESS(MESSAGE.ADD_TODO_SUCCESS));
+        TodoView.displayTodos(TodoService.todos);
+        // get id of new todo when just  add
+        this.renderNewTodoWhenChange();
       }
     } catch (error) {
       AppView.createToast(TOAST.ERROR(error));
