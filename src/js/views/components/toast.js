@@ -6,6 +6,7 @@ function Toast(type = "error", message = "TypeError: Failed to fetch") {
     [TOAST.ERROR]: "ti-close",
   };
   const icon = icons[type];
+
   return `
     <div class="toast-item toast-${type}">
         <div class="toast-icon">
