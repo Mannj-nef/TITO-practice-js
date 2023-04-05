@@ -70,8 +70,8 @@ class AuthController {
     AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGIN_SUCCESS));
 
     AppView.showPage("login", PAGE.TODO);
-    const todoPage = document.querySelector(".todo-page");
-    if (todoPage) {
+
+    if (user) {
       const todoControll = new TodoController(
         new TodoService(),
         TodoView,

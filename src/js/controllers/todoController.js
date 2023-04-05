@@ -185,7 +185,6 @@ class TodoController {
   handleLogout = () => {
     const AppView = this.appView;
     AppView.showPage("todo-page", PAGE.LOGIN);
-    window.location.search = "";
     AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGOUT_SUCCESS));
   };
 }
