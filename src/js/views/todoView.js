@@ -200,4 +200,4 @@ class TodoView {
   };
 }
 
-export default new TodoView();
+export default TodoView;
