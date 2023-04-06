@@ -1,4 +1,4 @@
-import Toast from "../views/components/toast";
+import Toast from "../views/components/Toast";
 import { TOAST as TOAST_TYPE } from "../constants/type";
 
 const TOAST = {

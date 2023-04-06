@@ -1,5 +1,9 @@
 import axios from "axios";
+import AppView from "../views/appView";
+
 import TodoSchema from "../models/todoModel";
+import TOAST from "../helper/handleToast";
+import MESSAGE from "../constants/message";
 
 class TodoService {
   constructor() {
@@ -9,44 +13,76 @@ class TodoService {
 
   async getAlltodo() {
     const endpointUrl = this.endpoint;
-    const { data } = await axios.get(endpointUrl);
 
-    if (data) {
-      this.todos = data.map((todo) => new TodoSchema(todo));
+    try {
+      const { data } = await axios.get(endpointUrl);
+
+      if (data) {
+        this.todos = data.map((todo) => new TodoSchema(todo));
+      }
+    } catch (error) {
+      AppView.createToast(TOAST.ERROR(error));
     }
   }
 
   async getTodoByEmail(email) {
     const endpointUrl = `${this.endpoint}?email=${email}`;
-    const { data } = await axios.get(endpointUrl);
 
-    if (data) {
-      this.todos = data.map((todo) => new TodoSchema(todo));
+    try {
+      const { data } = await axios.get(endpointUrl);
+
+      if (data) {
+        this.todos = data.map((todo) => new TodoSchema(todo));
+      }
+    } catch (error) {
+      AppView.createToast(TOAST.ERROR(error));
     }
   }
 
   async addTodo(todo) {
     const endpointUrl = this.endpoint;
-    const { data } = await axios.post(endpointUrl, todo);
 
-    if (data) {
-      this.todos.push(data);
+    try {
+      const { data } = await axios.post(endpointUrl, todo);
+
+      if (data) {
+        this.todos.push(data);
+      }
+      AppView.createToast(TOAST.SUCCESS(MESSAGE.ADD_TODO_SUCCESS));
+      return data;
+    } catch (error) {
+      AppView.createToast(TOAST.ERROR(error));
+      return null;
     }
-
-    return data;
   }
 
   async updateTodo(id, todoData) {
     const endpointUrl = `${this.endpoint}/${id}`;
-    const { data } = await axios.patch(endpointUrl, todoData);
-    return data;
+
+    try {
+      const { data } = await axios.patch(endpointUrl, todoData);
+      AppView.createToast(TOAST.SUCCESS(MESSAGE.UPDATE_TODO_SUCCESS));
+      return data;
+    } catch (error) {
+      AppView.createToast(TOAST.ERROR(error));
+      return null;
+    }
   }
 
   async removeTodo(id) {
     const endpointUrl = `${this.endpoint}/${id}`;
-    await axios.delete(endpointUrl);
-    this.todos = this.todos.filter((todo) => todo.id !== id);
+    try {
+      await axios.delete(endpointUrl);
+      this.todos = this.todos.filter((todo) => todo.id !== id);
+      AppView.createToast(TOAST.SUCCESS(MESSAGE.DELETE_TODO_SUCCESS));
+    } catch (error) {
+      AppView.createToast(TOAST.ERROR(error));
+    }
   }
+
+  logoutSuccess = () => {
+    AppView.createToast(TOAST.SUCCESS(MESSAGE.LOGOUT_SUCCESS));
+  };
 }
 
 export default TodoService;
