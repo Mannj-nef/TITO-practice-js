@@ -1,4 +1,4 @@
-import { handleFormLogin } from "../helper/handleForm";
+import { handleFormLogin } from "../helper/form";
 import { FORM } from "../constants/type";
 
 class AuthView {

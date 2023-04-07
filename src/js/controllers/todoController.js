@@ -1,11 +1,8 @@
 import MESSAGE from "../constants/message";
 import { ACTION_FORM, KEY, PAGE } from "../constants/type";
-import { handleCreateId } from "../helper/handleCreateId";
-import {
-  getLocalStorage,
-  clearLocalStorage,
-} from "../helper/handlelocalStorage";
-import TOAST from "../helper/handleToast";
+import { handleCreateId } from "../helper/createId";
+import { getLocalStorage, clearLocalStorage } from "../helper/localStorage";
+import TOAST from "../helper/toast";
 
 class TodoController {
   constructor(service, view, appView) {

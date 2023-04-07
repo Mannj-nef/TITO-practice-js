@@ -1,10 +1,7 @@
 import { ACTION_FORM, KEY } from "../constants/type";
 import debounce from "../helper/debounce";
-import { handleFormTodo } from "../helper/handleForm";
-import {
-  clearLocalStorage,
-  setLocalStorage,
-} from "../helper/handlelocalStorage";
+import { handleFormTodo } from "../helper/form";
+import { clearLocalStorage, setLocalStorage } from "../helper/localStorage";
 import TodoConfirmDelete from "./modules/todoList/TodoConfirmDelete";
 import TodoItem from "./modules/todoList/TodoItem";
 

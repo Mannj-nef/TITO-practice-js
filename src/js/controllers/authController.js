@@ -1,7 +1,7 @@
 import MESSAGE from "../constants/message";
 import { KEY, PAGE } from "../constants/type";
-import { getLocalStorage, setLocalStorage } from "../helper/handlelocalStorage";
-import TOAST from "../helper/handleToast";
+import { getLocalStorage, setLocalStorage } from "../helper/localStorage";
+import TOAST from "../helper/toast";
 
 class AuthController {
   constructor({
