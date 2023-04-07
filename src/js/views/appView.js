@@ -38,4 +38,4 @@ class AppView {
   }
 }
 
-export default new AppView();
+export default AppView;

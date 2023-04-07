@@ -76,4 +76,4 @@ class AuthView {
   };
 }
 
-export default new AuthView();
+export default AuthView;

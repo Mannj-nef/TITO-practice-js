@@ -74,7 +74,7 @@ class AuthController {
     if (user) {
       const todoControll = new TodoController(
         new TodoService(),
-        TodoView,
+        new TodoView(),
         AppView
       );
 
@@ -102,7 +102,7 @@ class AuthController {
         AppView.createTodoPage();
         const todoControll = new TodoController(
           new TodoService(),
-          TodoView,
+          new TodoView(),
           AppView
         );
 
