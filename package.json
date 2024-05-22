@@ -3,7 +3,8 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "server": "json-server --watch db.json --port 9999"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.3",
